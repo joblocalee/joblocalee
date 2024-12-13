@@ -70,13 +70,62 @@ class HomeScreen extends StatelessWidget {
                   Gap(20),
                   Text('New Openings',
                     style: AppTypography.headlineMedium,
-                  )
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 55,
+                    child: ListView.builder(
+                      padding: EdgeInsets.only(),
+                      itemCount: 5,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => _category(),
+
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
 
       ),
+    );
+  }
+}
+
+class _category extends StatelessWidget {
+  const _category({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 4,left: 4),
+      child: Container(
+          alignment: Alignment(0, 0),
+          height: 50,
+          width: 130,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(45),
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.black.withOpacity(0.1),
+            //     spreadRadius: 0.5,
+            //     blurRadius: 10,
+            //     offset: const Offset(0, 0),
+            //   ),
+            // ],
+          ),
+          child:
+          Text(
+            'Recent',
+            style: AppTypography.bodyLarge.copyWith(
+              color: Colors.black,
+            ),
+          ),
+        ),
     );
   }
 }
