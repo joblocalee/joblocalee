@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:jus/ui/screens/home/home_tab_screen.dart';
 
 import '../../../utils/constants/app_images.dart';
 import '../../../utils/constants/app_typography.dart';
@@ -31,9 +30,9 @@ class HomeScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: context.screenPadding),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Gap(30),
+                  const Gap(10),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -48,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(45),
                     ),
-                    child: const ListTile(
+                    child: ListTile(
                       leading: CircleAvatar(
                         radius: 25,
                         child: ClipOval(
@@ -60,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      title: Text('Lazim Nihal',
+                      title: Text('Khamarudheen C H',
                         style: AppTypography.titleLarge,
                       ),
                       subtitle: Text('lazimnihal@joblocalee.com',
@@ -68,6 +67,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Gap(20),
+                  Text('New Openings',
+                    style: AppTypography.headlineMedium,
+                  )
                 ],
               ),
             ),

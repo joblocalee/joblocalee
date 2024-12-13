@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../../../core/routes/app_router.gr.dart';
 import '../../../utils/constants/app_colors.dart';
@@ -59,10 +60,10 @@ class HomeTabScreen extends StatelessWidget {
             child: content,
           ),
           Positioned(
-            bottom: context.safeBottomStrict + 30,
+            bottom: context.safeBottomStrict + 20,
             left: context.screenPadding,
             right: context.screenPadding,
-            child: const _BottomNavigationBar(),
+            child: const _GBottomNav(),
           ),
         ],
       ),
@@ -168,4 +169,51 @@ class _BottomTabButton extends StatelessWidget {
       ),
     ),
   );
+}
+class _GBottomNav extends StatelessWidget {
+  const _GBottomNav({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 5),
+            ),
+          ],
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(45),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15,),
+          child: GNav(
+            gap: 8,
+            backgroundColor: Colors.blue,
+            color: Colors.white,
+            activeColor: Colors.blue,
+            tabBackgroundColor: Colors.white,
+            padding: EdgeInsets.all(16),
+            tabs: [
+              GButton(
+                icon: Icons.home_outlined,
+                text: 'Home',
+              ),
+              GButton(
+                icon: Icons.search,
+                text: 'Search',
+              ),
+              GButton(
+                icon: Icons.person_2_outlined,
+                text: 'Profile',
+              ),
+            ],
+          ),
+        ),
+      );
+  }
 }

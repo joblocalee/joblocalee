@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:jus/core/routes/app_router.gr.dart';
+import 'package:jus/ui/widgets/buttons/ink_well_material.dart';
 import 'package:jus/utils/constants/app_images.dart';
 
 import '../../widgets/buttons/primary_button.dart';
@@ -77,7 +79,7 @@ class LoginScreen extends StatelessWidget {
                             PrimaryButton(
                               text: 'Login',
                               onTap: () {
-                                context.router.pushNamed('/home');
+                                context.router.replaceAll([HomeTabRoute()]);
                               },
                             ),
                             const Gap(50),
@@ -85,10 +87,15 @@ class LoginScreen extends StatelessWidget {
                               "Don't have an account yet?",
                               style: AppTypography.bodyLarge,
                             ),
-                            Text(
-                              "Create Account?",
-                              style: AppTypography.labelMedium.copyWith(
-                                color: Colors.blue,
+                            InkWellMaterial(
+                              onTap: () {
+                               context.router.push(RegistrationRoute(),);
+                              },
+                              child: Text(
+                                "Create Account?",
+                                style: AppTypography.labelMedium.copyWith(
+                                  color: Colors.blue,
+                                ),
                               ),
                             ),
                             const Gap(30),
