@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jus/utils/constants/app_typography.dart';
 
 import 'core/injection/injection.dart';
 import 'core/routes/app_router.dart';
@@ -22,9 +23,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appRouter = locator<AppRouter>();
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       routerConfig: appRouter.config(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: AppTypography.defaultFamily,
         useMaterial3: true,
       ),
     );
