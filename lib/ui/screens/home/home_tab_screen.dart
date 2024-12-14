@@ -15,22 +15,19 @@ enum _BottomTabEnum {
       icon: Icons.home,
       width: 28,
       height: 28,
-      route: HomeRoute()
-  ),
+      route: HomeRoute()),
   cart(
-      name: 'Cart',
-      icon: Icons.shopify,
+      name: 'Search',
+      icon: Icons.search,
       width: 28,
       height: 28,
-      route: RegistrationRoute()
-  ),
+      route: SearchRoute()),
   profile(
       name: 'Profile',
       icon: Icons.person,
       width: 28,
       height: 28,
-      route: LoginRoute()
-  );
+      route: ProfileRoute());
 
   const _BottomTabEnum({
     required this.icon,
@@ -53,22 +50,22 @@ class HomeTabScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AutoRouter(
-    builder: (context, content) => Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: content,
+        builder: (context, content) => Scaffold(
+          body: Stack(
+            children: [
+              Positioned.fill(
+                child: content,
+              ),
+              Positioned(
+                bottom: context.safeBottomStrict + 20,
+                left: context.screenPadding,
+                right: context.screenPadding,
+                child: const _GBottomNav(),
+              ),
+            ],
           ),
-          Positioned(
-            bottom: context.safeBottomStrict + 20,
-            left: context.screenPadding,
-            right: context.screenPadding,
-            child: const _GBottomNav(),
-          ),
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 }
 
 class _BottomNavigationBar extends StatelessWidget {
@@ -107,7 +104,7 @@ class _BottomNavigationBar extends StatelessWidget {
               children: List.generate(
                 _BottomTabEnum.values.length,
                 // ignore: proper_expanded_and_flexible
-                    (index) => Expanded(
+                (index) => Expanded(
                   child: _BottomTabButton(
                     bottomTabEnum: _BottomTabEnum.values[index],
                     activeRoute: activeRoute,
@@ -134,86 +131,97 @@ class _BottomTabButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWellMaterial(
-    borderRadius: 20,
-    onTap: () => context.navigateTo(bottomTabEnum.route),
-    child: Padding(
-      padding: const EdgeInsets.only(
-        top: 14, bottom: 1,
-        // top: activeRoute == bottomTabEnum.route.routeName ? 14 : 18,
-        // bottom: activeRoute == bottomTabEnum.route.routeName ? 2 : 0,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              bottomTabEnum.icon,
-              color: activeRoute == bottomTabEnum.route.routeName
-                  ? AppColors.buttonColor
-                  : AppColors.buttonColor.withOpacity(0.6),
-              size: 20,
+        borderRadius: 20,
+        onTap: () => context.navigateTo(bottomTabEnum.route),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 14, bottom: 1,
+            // top: activeRoute == bottomTabEnum.route.routeName ? 14 : 18,
+            // bottom: activeRoute == bottomTabEnum.route.routeName ? 2 : 0,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  bottomTabEnum.icon,
+                  color: activeRoute == bottomTabEnum.route.routeName
+                      ? AppColors.buttonColor
+                      : AppColors.buttonColor.withOpacity(0.6),
+                  size: 20,
+                ),
+                const Gap(2),
+                Text(
+                  bottomTabEnum.name,
+                  style: TextStyle(
+                    fontSize: AppTypography.sBodySmall,
+                    color: activeRoute == bottomTabEnum.route.routeName
+                        ? AppColors.buttonColor
+                        : AppColors.buttonColor.withOpacity(0.6),
+                  ),
+                ),
+              ],
             ),
-            const Gap(2),
-            Text(
-              bottomTabEnum.name,
-              style: TextStyle(
-                fontSize: AppTypography.sBodySmall,
-                color: activeRoute == bottomTabEnum.route.routeName
-                    ? AppColors.buttonColor
-                    : AppColors.buttonColor.withOpacity(0.6),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
-    ),
-  );
+      );
 }
+
 class _GBottomNav extends StatelessWidget {
   const _GBottomNav({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return
-      Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 5),
-            ),
-          ],
-          color: Colors.blue,
-          borderRadius: BorderRadius.circular(45),
+    final activeRoute = AutoRouter.of(context, watch: true)
+        .stack
+        .reversed
+        .firstOrNull
+        ?.routeData
+        .name;
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 5),
+          ),
+        ],
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(45),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 15,
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15,),
-          child: GNav(
-            gap: 8,
-            backgroundColor: Colors.blue,
-            color: Colors.white,
-            activeColor: Colors.blue,
-            tabBackgroundColor: Colors.white,
-            padding: EdgeInsets.all(16),
-            tabs: [
-              GButton(
-                icon: Icons.home_outlined,
-                text: 'Home',
+        child: GNav(
+          // key: Key(activeRoute.toString()),
+          gap: 8,
+          selectedIndex: _BottomTabEnum.values.indexWhere(
+            (element) => element.route.routeName == activeRoute,
+          ),
+          backgroundColor: Colors.blue,
+          color: Colors.white,
+          activeColor: Colors.blue,
+          tabBackgroundColor: Colors.white,
+          padding: EdgeInsets.all(16),
+          tabs: List.generate(
+            _BottomTabEnum.values.length,
+            (index) => GButton(
+              // active: activeRoute ==
+              //     _BottomTabEnum.values[index].route.routeName,
+              icon: _BottomTabEnum.values[index].icon,
+              text: _BottomTabEnum.values[index].name,
+              onPressed: () => context.router.push(
+                _BottomTabEnum.values[index].route,
               ),
-              GButton(
-                icon: Icons.search,
-                text: 'Search',
-              ),
-              GButton(
-                icon: Icons.person_2_outlined,
-                text: 'Profile',
-              ),
-            ],
+            ),
           ),
         ),
-      );
+      ),
+    );
   }
 }
