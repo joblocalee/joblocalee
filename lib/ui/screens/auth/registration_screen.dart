@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:jus/core/routes/app_router.gr.dart';
 
 import '../../../utils/extensions/build_context_extension.dart';
 import '../../widgets/primary_form_field.dart';
@@ -68,7 +69,9 @@ class RegistrationScreen extends StatelessWidget {
                   PrimaryButton(
                     text: 'Sign Up',
                     onTap: () {
-                      context.router.pushNamed('/registration');
+                      context.router.push(
+                        HomeTabRoute(),
+                      );
                     },
                   ),
                 ],
