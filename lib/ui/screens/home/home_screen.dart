@@ -30,43 +30,59 @@ class HomeScreen extends StatelessWidget {
         // ),
       ),
       body: SafeArea(
-          child:SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: context.screenPadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('New Openings',
-                    style: AppTypography.headlineMedium.copyWith(
-                      fontSize: 35,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: context.screenPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'New Openings',
+                  style: AppTypography.headlineMedium.copyWith(
+                    fontSize: 35,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 40,
+                  child: ListView.builder(
+                    itemCount: 7,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => _category(),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 10,
+                      bottom: 8,
+                    ),
+                    child: SizedBox(
+                      height: 620,
+                      child: ListView.builder(
+                        itemCount: 20,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) => _jobCard(),
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 40,
-                    child: ListView.builder(
-                      padding: EdgeInsets.only(),
-                      itemCount: 7,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => _category(),
-                    ),
-                  ),
-                  _jobCard(),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-
+        ),
       ),
     );
   }
 }
-
-
 
 class _category extends StatelessWidget {
   const _category({super.key});
@@ -74,39 +90,36 @@ class _category extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 4,left: 4),
+      padding: const EdgeInsets.only(right: 4, left: 4),
       child: Container(
-          alignment: Alignment(0, 0),
-          height: 50,
-          width: 100,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
-              color: Colors.blue,
-            ),
-            borderRadius: BorderRadius.circular(45),
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: Colors.black.withOpacity(0.1),
-            //     spreadRadius: 0.5,
-            //     blurRadius: 10,
-            //     offset: const Offset(0, 0),
-            //   ),
-            // ],
+        alignment: Alignment(0, 0),
+        height: 50,
+        width: 100,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(
+            color: Colors.blue,
           ),
-          child:
-          Text(
-            'Recent',
-            style: AppTypography.labelLarge.copyWith(
-              color: Colors.blue,
-            ),
+          borderRadius: BorderRadius.circular(45),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.black.withOpacity(0.1),
+          //     spreadRadius: 0.5,
+          //     blurRadius: 10,
+          //     offset: const Offset(0, 0),
+          //   ),
+          // ],
+        ),
+        child: Text(
+          'Recent',
+          style: AppTypography.labelLarge.copyWith(
+            color: Colors.blue,
           ),
         ),
+      ),
     );
   }
 }
-
-
 
 class _jobCard extends StatelessWidget {
   const _jobCard({super.key});
@@ -114,9 +127,7 @@ class _jobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: context.screenPadding,
-      ),
+      padding: EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -128,11 +139,11 @@ class _jobCard extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade300,
-                  blurRadius: 5,
-                  offset: Offset(-10, 8),
-                ),
+                // BoxShadow(
+                //   color: Colors.grey.shade300,
+                //   blurRadius: 5,
+                //   offset: Offset(-10, 8),
+                // ),
               ],
             ),
             child: Padding(
@@ -150,35 +161,39 @@ class _jobCard extends StatelessWidget {
                       child: Image.asset(
                         AppImages.sampleImage,
                         fit: BoxFit.fill,
+                        width: 125,
+                        height: 175,
                       ),
                     ),
                   ),
-                  Expanded(
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 10.0,
+                      right: 10.0,
+                      bottom: 10.0,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Althaf',
+                          'Sales Executive',
                           style: AppTypography.titleLarge,
                         ),
                         Text(
-                          'Ahamed',
+                          'Fulltime',
                           style: AppTypography.bodyMedium,
                         ),
-                        Gap(10),
-                        Row(
-                          children: [
-                            PrimaryButton(
-                              onTap: (){
-                              },
+                        Gap(58),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: SizedBox(
+                            width: 208,
+                            child: PrimaryButton(
+                              onTap: () {},
                               text: 'Apply',
                             ),
-                            // PrimaryButton(
-                            //   te
-                            // ),
-                          ],
-                        )
-
+                          ),
+                        ),
                       ],
                     ),
                   ),
