@@ -33,7 +33,9 @@ class HomeScreen extends StatelessWidget {
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.screenPadding),
+            padding: EdgeInsets.symmetric(
+              horizontal: context.screenPadding * 0.5,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -139,11 +141,12 @@ class _jobCard extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
-                // BoxShadow(
-                //   color: Colors.grey.shade300,
-                //   blurRadius: 5,
-                //   offset: Offset(-10, 8),
-                // ),
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: Offset(0, 5),
+                ),
               ],
             ),
             child: Padding(
@@ -159,7 +162,7 @@ class _jobCard extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        AppImages.sampleImage,
+                        AppImages.splashImage,
                         fit: BoxFit.fill,
                         width: 125,
                         height: 175,

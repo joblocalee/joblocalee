@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:jus/core/provider/auth_provider.dart';
+import 'package:jus/core/provider/base/multi_providers.dart';
 import 'package:jus/core/routes/app_router.gr.dart';
 import 'package:jus/ui/widgets/buttons/ink_well_material.dart';
 import 'package:jus/utils/constants/app_images.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/primary_form_field.dart';
@@ -11,8 +14,24 @@ import '../../../utils/extensions/build_context_extension.dart';
 import '../../../utils/constants/app_typography.dart';
 
 @RoutePage()
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
+  late TextEditingController _emailCtrl;
+  late TextEditingController _passWordCtrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailCtrl = TextEditingController();
+    _passWordCtrl = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +44,7 @@ class LoginScreen extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: context.screenPadding),
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, 
+                Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
 
                       const Gap(200),
@@ -53,7 +72,7 @@ class LoginScreen extends StatelessWidget {
                               blurRadius: 5,
                               offset: const Offset(0, 5),
                             ),
-                          ], 
+                          ],
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(15),
                           color: Colors.white,
@@ -68,12 +87,14 @@ class LoginScreen extends StatelessWidget {
                             PrimaryFormField(
                               lText: 'E-mail',
                               prefix: Icon(Icons.mail),
+                              controller: _emailCtrl,
                             ),
                             const Gap(10),
                             PrimaryFormField(
                               lText: 'Password',
                               prefix: Icon(Icons.lock),
                               isPassWord: true,
+                              controller: _passWordCtrl,
                             ),
                             const Gap(50),
                             PrimaryButton(
@@ -108,4 +129,22 @@ class LoginScreen extends StatelessWidget {
       )),
     );
   }
+
+  @override
+  void dispose() {
+    _passWordCtrl.dispose();
+    _emailCtrl.dispose();
+    super.dispose();
+  }
+
+  Future<void> _login() async {
+    final result = await context.read<AuthProvider>().login(
+      passWord: _passWordCtrl.text,
+      email: _emailCtrl.text,
+    );
+    if (result && mounted) {
+      await context.router.replaceAll([const HomeTabRoute()]);
+    }
+  }
 }
+

@@ -42,13 +42,13 @@ class ProfileScreen extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 2,
-                  ),
+                  // border: Border.all(
+                  //   color: Colors.black,
+                  //   width: 2,
+                  // ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withOpacity(0.05),
                       spreadRadius: 1,
                       blurRadius: 5,
                       offset: const Offset(0, 5),
@@ -69,12 +69,50 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  title: Text('Khamarudheen C H',
+                  title: Text(
+                    'Khamarudheen C H',
                     style: AppTypography.titleLarge,
                   ),
-                  subtitle: Text('lazimnihal@joblocalee.com',
+                  subtitle: Text(
+                    'lazimnihal@joblocalee.com',
                     style: AppTypography.bodyMedium,
                   ),
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              SizedBox(
+                height: 500,
+                child: GridView.count(
+                  physics: NeverScrollableScrollPhysics(),
+                  primary: false,
+                  padding: EdgeInsets.all(10.0),
+                  crossAxisSpacing: 1,
+                  mainAxisSpacing: 1,
+                  crossAxisCount: 2,
+                  children: [
+                    _profileTiles(
+                      text: 'Edit\nProfile',
+                      icon: Icons.edit_outlined,
+                      color: Colors.greenAccent.shade100,
+                    ),
+                    _profileTiles(
+                      text: 'Edit\nProfile',
+                      icon: Icons.edit_outlined,
+                      color: Colors.blueAccent.shade100,
+                    ),
+                    _profileTiles(
+                      text: 'Edit\nProfile',
+                      icon: Icons.edit_outlined,
+                      color: Colors.amber.shade100,
+                    ),
+                    _profileTiles(
+                      text: 'Edit\nProfile',
+                      icon: Icons.edit_outlined,
+                      color: Colors.red.shade100,
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -85,3 +123,64 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
+class _profileTiles extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  final Color color;
+
+  const _profileTiles({
+    super.key,
+    required this.text,
+    required this.icon,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: color,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Icon(
+                      icon,
+                      size: 30,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(text, style: AppTypography.titleLarge),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

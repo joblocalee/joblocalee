@@ -33,11 +33,7 @@ class RegistrationScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Register Your Free',
-                    style: AppTypography.headlineLarge,
-                  ),
-                  Text(
-                    'Account Now',
+                    'Register Your Free\nAccount Now',
                     style: AppTypography.headlineLarge,
                   ),
                   const Gap(25),

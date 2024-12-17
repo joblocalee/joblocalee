@@ -7,6 +7,7 @@ class PrimaryFormField extends StatefulWidget {
   final String lText;
   final Widget? prefix;
   final bool isPassWord;
+  final TextEditingController? controller;
 
   const PrimaryFormField({
     super.key,
@@ -14,6 +15,8 @@ class PrimaryFormField extends StatefulWidget {
     required this.lText,
     this.prefix,
     this.isPassWord = false,
+    this.controller,
+
   });
 
   @override
@@ -34,6 +37,7 @@ class _PrimaryFormFieldState extends State<PrimaryFormField> {
     return Column(
       children: [
         TextFormField(
+          controller: widget.controller,
           obscureText: _isSecure,
           style: TextStyle(
             fontFamily: AppTypography.defaultFamily,
