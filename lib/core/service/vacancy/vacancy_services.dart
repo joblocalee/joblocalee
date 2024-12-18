@@ -12,7 +12,8 @@ class VacancyServices{
 
   Future<VacancyServiceDto> getVacancy() async {
     final response = await _api.httpGet(
-      endPath: 'https://dummyjson.com/products',
+
+      endPath: 'https://dummyjson.com/vacancy',
     );
 
     return Isolate.run(
