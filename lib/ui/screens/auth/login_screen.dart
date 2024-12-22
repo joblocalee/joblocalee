@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.blueAccent,
       body: SafeArea(
           child: Center(
         child: SingleChildScrollView(
@@ -51,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text(
                         'Login To',
                         style: AppTypography.headlineLarge.copyWith(
+                          color: Colors.grey.shade900,
                           fontSize: 45,
                         ),
                       ),
@@ -115,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Text(
                                 "Create Account?",
                                 style: AppTypography.labelMedium.copyWith(
-                                  color: Colors.blue,
+                                  color: Colors.blueAccent,
                                 ),
                               ),
                             ),

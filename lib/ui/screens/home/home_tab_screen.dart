@@ -18,7 +18,7 @@ enum _BottomTabEnum {
       route: HomeRoute()),
   cart(
       name: 'Search',
-      icon: Icons.search,
+      icon: Icons.search_rounded,
       width: 28,
       height: 28,
       route: SearchRoute()),
@@ -189,13 +189,13 @@ class _GBottomNav extends StatelessWidget {
             offset: const Offset(0, 5),
           ),
         ],
-        color: Colors.blue,
+        color: Colors.blueAccent,
         borderRadius: BorderRadius.circular(45),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 10,
-          vertical: 15,
+          vertical: 10,
         ),
         child: GNav(
           // key: Key(activeRoute.toString()),
@@ -203,11 +203,14 @@ class _GBottomNav extends StatelessWidget {
           selectedIndex: _BottomTabEnum.values.indexWhere(
             (element) => element.route.routeName == activeRoute,
           ),
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.blueAccent,
           color: Colors.white,
-          activeColor: Colors.blue,
+          activeColor: Colors.blueAccent,
           tabBackgroundColor: Colors.white,
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 12,
+          ),
           tabs: List.generate(
             _BottomTabEnum.values.length,
             (index) => GButton(

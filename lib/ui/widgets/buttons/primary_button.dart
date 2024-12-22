@@ -4,6 +4,7 @@ import 'package:jus/utils/constants/app_typography.dart';
 class PrimaryButton extends StatelessWidget {
   final String? text;
   final VoidCallback onTap;
+
   const PrimaryButton({super.key, this.text, required this.onTap});
 
   @override
@@ -12,8 +13,9 @@ class PrimaryButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         alignment: Alignment.center,
-        child: Text(text!,style:
-        TextStyle(
+        child: Text(
+          text!,
+          style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),

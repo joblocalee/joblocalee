@@ -100,7 +100,7 @@ class _category extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
-            color: Colors.blue,
+            color: Colors.blueAccent,
           ),
           borderRadius: BorderRadius.circular(45),
           // boxShadow: [
@@ -115,7 +115,7 @@ class _category extends StatelessWidget {
         child: Text(
           'Recent',
           style: AppTypography.labelLarge.copyWith(
-            color: Colors.blue,
+            color: Colors.blueAccent,
           ),
         ),
       ),

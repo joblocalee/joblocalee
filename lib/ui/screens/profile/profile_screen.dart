@@ -80,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 25,
+                height: 15,
               ),
               SizedBox(
                 height: 500,
@@ -95,22 +95,22 @@ class ProfileScreen extends StatelessWidget {
                     _profileTiles(
                       text: 'Edit\nProfile',
                       icon: Icons.edit_outlined,
-                      color: Colors.greenAccent.shade100,
-                    ),
-                    _profileTiles(
-                      text: 'Edit\nProfile',
-                      icon: Icons.edit_outlined,
                       color: Colors.blueAccent.shade100,
                     ),
                     _profileTiles(
-                      text: 'Edit\nProfile',
-                      icon: Icons.edit_outlined,
-                      color: Colors.amber.shade100,
+                      text: 'App\nNotifications',
+                      icon: Icons.notifications_none,
+                      color: Colors.greenAccent.shade100,
+                    ),
+                    _profileTiles(
+                      text: 'Applied\nJobs',
+                      icon: Icons.work_outline_rounded,
+                      color: Colors.amberAccent.shade100,
                     ),
                     _profileTiles(
                       text: 'Edit\nProfile',
                       icon: Icons.edit_outlined,
-                      color: Colors.red.shade100,
+                      color: Colors.redAccent.shade100,
                     ),
                   ],
                 ),
@@ -138,7 +138,7 @@ class _profileTiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(4.0),
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -168,14 +168,18 @@ class _profileTiles extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Icon(
                       icon,
-                      size: 30,
+                      size: 32,
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 16,
+                  height: 32,
                 ),
-                Text(text, style: AppTypography.titleLarge),
+                Text(text,
+                    style: AppTypography.titleLarge.copyWith(
+                      fontSize: 22,
+                    ),
+                ),
               ],
             ),
           ),
