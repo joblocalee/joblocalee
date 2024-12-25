@@ -22,7 +22,7 @@ class PrimaryButton extends StatelessWidget {
         ),
         height: 50,
         decoration: BoxDecoration(
-          color: Colors.blueAccent,
+          color: Colors.black,
           borderRadius: BorderRadius.circular(15),
         ),
       ),

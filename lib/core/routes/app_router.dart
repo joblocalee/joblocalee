@@ -26,6 +26,22 @@ class AppRouter extends RootStackRouter {
       path: '/profile',
     ),
     AutoRoute(
+      page:EditProfileRoute.page,
+      path: '/editProfile',
+    ),
+    AutoRoute(
+      page:JobDescriptionRoute.page,
+      path: '/jobDescription',
+    ),
+    AutoRoute(
+      page:AppliedJobsRoute.page,
+      path: '/appliedJobs',
+    ),
+    AutoRoute(
+      page:AppNotificationRoute.page,
+      path: '/appNotification',
+    ),
+    AutoRoute(
       page: HomeTabRoute.page,
       path: '/',
       children: [

@@ -1,13 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:jus/core/provider/auth_provider.dart';
-import 'package:jus/core/provider/base/multi_providers.dart';
-import 'package:jus/core/routes/app_router.gr.dart';
-import 'package:jus/ui/widgets/buttons/ink_well_material.dart';
-import 'package:jus/utils/constants/app_images.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/provider/auth_provider.dart';
+import '../../../core/routes/app_router.gr.dart';
+import '../../widgets/buttons/ink_well_material.dart';
 import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/primary_form_field.dart';
 import '../../../utils/extensions/build_context_extension.dart';
@@ -36,7 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
       body: SafeArea(
           child: Center(
         child: SingleChildScrollView(
@@ -116,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Text(
                                 "Create Account?",
                                 style: AppTypography.labelMedium.copyWith(
-                                  color: Colors.blueAccent,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),

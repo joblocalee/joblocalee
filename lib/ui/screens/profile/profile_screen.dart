@@ -1,14 +1,10 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:jus/core/routes/app_router.gr.dart';
 
+import '../../../core/routes/app_router.gr.dart';
 import '../../../utils/extensions/build_context_extension.dart';
 import '../../../utils/constants/app_typography.dart';
-import '../../../utils/constants/app_dimensions.dart';
 import '../../../utils/constants/app_images.dart';
-import '../../widgets/buttons/primary_button.dart';
 
 @RoutePage()
 class ProfileScreen extends StatelessWidget {
@@ -25,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: context.screenPadding,
+            horizontal: context.screenPadding * 0.5,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,10 +44,9 @@ class ProfileScreen extends StatelessWidget {
                   // ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(0, 5),
+                      color: Colors.grey.withOpacity(0.5),
+                      blurRadius: 10,
+                      offset: const Offset(-5, 5),
                     ),
                   ],
                   shape: BoxShape.rectangle,
@@ -87,7 +82,7 @@ class ProfileScreen extends StatelessWidget {
                 child: GridView.count(
                   physics: NeverScrollableScrollPhysics(),
                   primary: false,
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(5.0),
                   crossAxisSpacing: 1,
                   mainAxisSpacing: 1,
                   crossAxisCount: 2,
@@ -96,21 +91,33 @@ class ProfileScreen extends StatelessWidget {
                       text: 'Edit\nProfile',
                       icon: Icons.edit_outlined,
                       color: Colors.blueAccent.shade100,
+                      onTap: (){
+                        context.router.push(EditProfileRoute());
+                      },
                     ),
                     _profileTiles(
                       text: 'App\nNotifications',
                       icon: Icons.notifications_none,
                       color: Colors.greenAccent.shade100,
+                      onTap: (){
+                        context.router.push(AppNotificationRoute());
+                      },
                     ),
                     _profileTiles(
                       text: 'Applied\nJobs',
                       icon: Icons.work_outline_rounded,
                       color: Colors.amberAccent.shade100,
+                      onTap: (){
+                        context.router.push(AppliedJobsRoute());
+                      },
                     ),
                     _profileTiles(
                       text: 'Edit\nProfile',
                       icon: Icons.edit_outlined,
                       color: Colors.redAccent.shade100,
+                      onTap: (){
+                        context.router.push(EditProfileRoute());
+                      },
                     ),
                   ],
                 ),
@@ -127,12 +134,14 @@ class _profileTiles extends StatelessWidget {
   final String text;
   final IconData icon;
   final Color color;
+  final VoidCallback onTap;
 
   const _profileTiles({
     super.key,
     required this.text,
     required this.icon,
     required this.color,
+    required this.onTap,
   });
 
   @override
@@ -145,10 +154,9 @@ class _profileTiles extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 5),
+              color: Colors.grey.withOpacity(0.5),
+              blurRadius: 10,
+              offset: const Offset(-5, 5),
             ),
           ],
         ),

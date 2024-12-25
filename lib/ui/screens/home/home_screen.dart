@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:jus/utils/constants/app_images.dart';
 
+import '../../../utils/constants/app_images.dart';
 import '../../../utils/constants/app_dimensions.dart';
 import '../../../utils/constants/app_typography.dart';
 import '../../../utils/extensions/build_context_extension.dart';
@@ -22,12 +22,6 @@ class HomeScreen extends StatelessWidget {
             context.router.pushNamed('/login');
           },
         ),
-        // title: Text('Job Localee',
-        //   textAlign: TextAlign.center,
-        //   style: AppTypography.headlineLarge.copyWith(
-        //     fontSize: 25,
-        //   ),
-        // ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -61,20 +55,12 @@ class HomeScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 10,
-                      bottom: 8,
-                    ),
-                    child: SizedBox(
-                      height: 620,
-                      child: ListView.builder(
-                        itemCount: 20,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) => _jobCard(),
-                      ),
-                    ),
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    itemCount: 20,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) => _jobCard(),
                   ),
                 ),
               ],
@@ -100,7 +86,7 @@ class _category extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
-            color: Colors.blueAccent,
+            color: Colors.black,
           ),
           borderRadius: BorderRadius.circular(45),
           // boxShadow: [
@@ -115,7 +101,7 @@ class _category extends StatelessWidget {
         child: Text(
           'Recent',
           style: AppTypography.labelLarge.copyWith(
-            color: Colors.blueAccent,
+            color: Colors.black,
           ),
         ),
       ),
@@ -142,10 +128,9 @@ class _jobCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: Offset(0, 5),
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 10,
+                  offset: Offset(-5, 5),
                 ),
               ],
             ),
@@ -164,7 +149,6 @@ class _jobCard extends StatelessWidget {
                       child: Image.asset(
                         AppImages.splashImage,
                         fit: BoxFit.fill,
-                        width: 125,
                         height: 175,
                       ),
                     ),

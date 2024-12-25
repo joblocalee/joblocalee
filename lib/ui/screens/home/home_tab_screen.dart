@@ -183,13 +183,12 @@ class _GBottomNav extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, 5),
+            color: Colors.grey.withOpacity(0.5),
+            blurRadius: 10,
+            offset: const Offset(-5, 5),
           ),
         ],
-        color: Colors.blueAccent,
+        color: Colors.black,
         borderRadius: BorderRadius.circular(45),
       ),
       child: Padding(
@@ -203,10 +202,10 @@ class _GBottomNav extends StatelessWidget {
           selectedIndex: _BottomTabEnum.values.indexWhere(
             (element) => element.route.routeName == activeRoute,
           ),
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.black,
           color: Colors.white,
-          activeColor: Colors.blueAccent,
-          tabBackgroundColor: Colors.white,
+          activeColor: Colors.black,
+          tabBackgroundColor: Colors.lightBlueAccent.shade100,
           padding: EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 12,

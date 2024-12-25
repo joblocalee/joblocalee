@@ -26,7 +26,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter.config(),
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey.shade500),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        scaffoldBackgroundColor: Colors.blueGrey.shade100,
+        appBarTheme: AppBarTheme(
+          color: Color(0xffCFD8DC),
+        ),
         fontFamily: AppTypography.defaultFamily,
         useMaterial3: true,
       ),
