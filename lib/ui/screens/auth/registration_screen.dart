@@ -37,38 +37,63 @@ class RegistrationScreen extends StatelessWidget {
                     style: AppTypography.headlineLarge,
                   ),
                   const Gap(25),
-                  PrimaryFormField(
-                    lText: 'Username',
-                    prefix: Icon(Icons.alternate_email),
-                  ),
-                  const Gap(10),
-                  PrimaryFormField(
-                      lText: 'Name', prefix: Icon(Icons.account_circle)),
-                  const Gap(10),
-                  PrimaryFormField(
-                      lText: 'Phone Number', prefix: Icon(Icons.phone)),
-                  const Gap(10),
-                  PrimaryFormField(lText: 'E-mail', prefix: Icon(Icons.email)),
-                  const Gap(10),
-                  PrimaryFormField(
-                    lText: 'Password',
-                    prefix: Icon(Icons.lock),
-                    isPassWord: true,
-                  ),
-                  const Gap(10),
-                  PrimaryFormField(
-                    lText: 'Confirm Password',
-                    prefix: Icon(Icons.lock),
-                    isPassWord: true,
-                  ),
-                  const Gap(50),
-                  PrimaryButton(
-                    text: 'Sign Up',
-                    onTap: () {
-                      context.router.push(
-                        HomeTabRoute(),
-                      );
-                    },
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Welcome to Job Localee!',
+                          style: AppTypography.bodyLarge,
+                        ),
+                        const Gap(10),
+                        PrimaryFormField(
+                          lText: 'Username',
+                          prefix: Icon(Icons.alternate_email),
+                        ),
+                        const Gap(10),
+                        PrimaryFormField(
+                            lText: 'Name', prefix: Icon(Icons.account_circle)),
+                        const Gap(10),
+                        PrimaryFormField(
+                            lText: 'Phone Number', prefix: Icon(Icons.phone)),
+                        const Gap(10),
+                        PrimaryFormField(lText: 'E-mail', prefix: Icon(Icons.email)),
+                        const Gap(10),
+                        PrimaryFormField(
+                          lText: 'Password',
+                          prefix: Icon(Icons.lock),
+                          isPassWord: true,
+                        ),
+                        const Gap(10),
+                        PrimaryFormField(
+                          lText: 'Confirm Password',
+                          prefix: Icon(Icons.lock),
+                          isPassWord: true,
+                        ),
+                        const Gap(50),
+                        PrimaryButton(
+                          text: 'Sign Up',
+                          onTap: () {
+                            context.router.push(
+                              HomeTabRoute(),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

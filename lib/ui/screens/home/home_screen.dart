@@ -89,14 +89,6 @@ class _category extends StatelessWidget {
             color: Colors.black,
           ),
           borderRadius: BorderRadius.circular(45),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.black.withOpacity(0.1),
-          //     spreadRadius: 0.5,
-          //     blurRadius: 10,
-          //     offset: const Offset(0, 0),
-          //   ),
-          // ],
         ),
         child: Text(
           'Recent',
