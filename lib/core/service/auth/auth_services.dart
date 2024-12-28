@@ -34,4 +34,33 @@ class AuthServices {
           },
     );
   }
+
+  Future<UserModel> registration({
+      required String email,
+      required String name,
+      required String passWord,
+      required String phoneNumber
+    }) async {
+    final response = await _api.httpPost(
+
+      endPath: '',
+      body: {
+        'email': email,
+        'name': name,
+        'passWord': passWord,
+        'phoneNumber': phoneNumber,
+      },
+    );
+
+    return Isolate.run(
+          () {
+        final Map<String, dynamic> responseData =
+        ResponseChecker.getSuccessData(
+          response: response,
+        );
+
+        return UserModel.fromJson(responseData);
+      },
+    );
+  }
 }

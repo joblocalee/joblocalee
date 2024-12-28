@@ -38,10 +38,6 @@ class ProfileScreen extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  // border: Border.all(
-                  //   color: Colors.black,
-                  //   width: 2,
-                  // ),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
@@ -57,19 +53,18 @@ class ProfileScreen extends StatelessWidget {
                     radius: 25,
                     child: ClipOval(
                       child: Image(
-                        image: AssetImage(AppImages.sampleImage),
-                        fit: BoxFit.fill,
-                        height: 50,
-                        width: 50,
+                        image: AssetImage(AppImages.profileImage),
+                        fit: BoxFit.fitWidth,
+                        width: 100,
                       ),
                     ),
                   ),
                   title: Text(
-                    'Khamarudheen C H',
+                    'Muhammed Nihal M P',
                     style: AppTypography.titleLarge,
                   ),
                   subtitle: Text(
-                    'lazimnihal@joblocalee.com',
+                    'muhammednihal@joblocalee.com',
                     style: AppTypography.bodyMedium,
                   ),
                 ),
@@ -87,7 +82,7 @@ class ProfileScreen extends StatelessWidget {
                   mainAxisSpacing: 1,
                   crossAxisCount: 2,
                   children: [
-                    _profileTiles(
+                    _ProfileTiles(
                       text: 'Edit\nProfile',
                       icon: Icons.edit_outlined,
                       color: Colors.blueAccent.shade100,
@@ -95,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
                         context.router.push(EditProfileRoute());
                       },
                     ),
-                    _profileTiles(
+                    _ProfileTiles(
                       text: 'App\nNotifications',
                       icon: Icons.notifications_none,
                       color: Colors.greenAccent.shade100,
@@ -103,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
                         context.router.push(AppNotificationRoute());
                       },
                     ),
-                    _profileTiles(
+                    _ProfileTiles(
                       text: 'Applied\nJobs',
                       icon: Icons.work_outline_rounded,
                       color: Colors.amberAccent.shade100,
@@ -111,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
                         context.router.push(AppliedJobsRoute());
                       },
                     ),
-                    _profileTiles(
+                    _ProfileTiles(
                       text: 'Edit\nProfile',
                       icon: Icons.edit_outlined,
                       color: Colors.redAccent.shade100,
@@ -130,13 +125,13 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class _profileTiles extends StatelessWidget {
+class _ProfileTiles extends StatelessWidget {
   final String text;
   final IconData icon;
   final Color color;
   final VoidCallback onTap;
 
-  const _profileTiles({
+  const _ProfileTiles({
     super.key,
     required this.text,
     required this.icon,
@@ -146,49 +141,52 @@ class _profileTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              blurRadius: 10,
-              offset: const Offset(-5, 5),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: color,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Icon(
-                      icon,
-                      size: 32,
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                blurRadius: 10,
+                offset: const Offset(-5, 5),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: color,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(
+                        icon,
+                        size: 32,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 32,
-                ),
-                Text(text,
-                    style: AppTypography.titleLarge.copyWith(
-                      fontSize: 22,
-                    ),
-                ),
-              ],
+                  SizedBox(
+                    height: 32,
+                  ),
+                  Text(text,
+                      style: AppTypography.titleLarge.copyWith(
+                        fontSize: 22,
+                      ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

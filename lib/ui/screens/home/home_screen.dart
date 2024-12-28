@@ -6,23 +6,34 @@ import '../../../utils/constants/app_images.dart';
 import '../../../utils/constants/app_dimensions.dart';
 import '../../../utils/constants/app_typography.dart';
 import '../../../utils/extensions/build_context_extension.dart';
+import '../../widgets/buttons/ink_well_material.dart';
 import '../../widgets/buttons/primary_button.dart';
 
 @RoutePage()
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late final ValueNotifier<int?> _selectedCategory;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedCategory = ValueNotifier(null);
+  }
+
+  @override
+  void dispose() {
+    _selectedCategory.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        leading: BackButton(
-          onPressed: () {
-            context.router.pushNamed('/login');
-          },
-        ),
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -44,11 +55,17 @@ class HomeScreen extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 40,
-                  child: ListView.builder(
-                    itemCount: 7,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => _category(),
+                  child: ValueListenableBuilder(
+                    valueListenable: _selectedCategory,
+                    builder: (context, categoryId, child) => ListView.builder(
+                      itemCount: 7,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => _Category(
+                        onTap: () => _selectCategory(index),
+                        isSelected: index == categoryId,
+                      ),
+                    ),
                   ),
                 ),
                 Container(
@@ -60,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                     itemCount: 20,
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) => _jobCard(),
+                    itemBuilder: (context, index) => _JobCard(),
                   ),
                 ),
               ],
@@ -70,30 +87,43 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _selectCategory(int index) => _selectedCategory.value = _selectedCategory.value == index ? null : index;
 }
 
-class _category extends StatelessWidget {
-  const _category({super.key});
+class _Category extends StatelessWidget {
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _Category({
+    required this.onTap,
+    super.key,
+    this.isSelected = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 4, left: 4),
-      child: Container(
-        alignment: Alignment(0, 0),
-        height: 50,
-        width: 100,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(
-            color: Colors.black,
+      child: InkWellMaterial(
+        borderRadius: 45,
+        onTap: onTap,
+        child: Container(
+          alignment: Alignment(0, 0),
+          height: 50,
+          width: 100,
+          decoration: BoxDecoration(
+            color: isSelected ? Colors.black: Colors.white,
+            border: Border.all(
+              color: Colors.black,
+            ),
+            borderRadius: BorderRadius.circular(45),
           ),
-          borderRadius: BorderRadius.circular(45),
-        ),
-        child: Text(
-          'Recent',
-          style: AppTypography.labelLarge.copyWith(
-            color: Colors.black,
+          child: Text(
+            'Recent',
+            style: AppTypography.labelLarge.copyWith(
+              color: isSelected ? Colors.white: Colors.black,
+            ),
           ),
         ),
       ),
@@ -101,8 +131,9 @@ class _category extends StatelessWidget {
   }
 }
 
-class _jobCard extends StatelessWidget {
-  const _jobCard({super.key});
+class _JobCard extends StatelessWidget {
+
+  const _JobCard({super.key});
 
   @override
   Widget build(BuildContext context) {

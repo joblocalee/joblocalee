@@ -2,6 +2,8 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:jus/ui/widgets/buttons/ink_well_material.dart';
+import 'package:jus/utils/constants/app_colors.dart';
 
 import '../../../core/routes/app_router.gr.dart';
 import '../../../utils/constants/app_dimensions.dart';
@@ -11,8 +13,27 @@ import '../../../utils/constants/app_typography.dart';
 import '../../widgets/buttons/primary_button.dart';
 
 @RoutePage()
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  late final ValueNotifier<int?> _selectedCategory;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedCategory = ValueNotifier(null);
+  }
+
+  @override
+  void dispose() {
+    _selectedCategory.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,25 +65,29 @@ class SearchScreen extends StatelessWidget {
                 TextField(
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
-                    disabledBorder: InputBorder.none,
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(45)
-                    ),
-                    hintText: 'Search...',
-                    prefixIcon: const Icon(Icons.search_rounded)
-                  ),
+                      disabledBorder: InputBorder.none,
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(45)),
+                      hintText: 'Search...',
+                      prefixIcon: const Icon(Icons.search_rounded)),
                 ),
                 Gap(16),
-                SizedBox(
-                  height: 40,
-                  child: ListView.builder(
-                    itemCount: 7,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => _category(),
-                  ),
+                ValueListenableBuilder(
+                  valueListenable: _selectedCategory,
+                  builder: (context, categoryId, child) => SizedBox(
+                      height: 40,
+                      child: ListView.builder(
+                        itemCount: 7,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => _Category(
+                          onTap: () => _selectCategory(index),
+                          isSelected: index == categoryId,
+                        ),
+                      ),
+                    )
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -73,7 +98,7 @@ class SearchScreen extends StatelessWidget {
                     itemCount: 20,
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) => _jobCard(),
+                    itemBuilder: (context, index) => _JobCard(),
                   ),
                 ),
               ],
@@ -83,32 +108,43 @@ class SearchScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _selectCategory(int index) => _selectedCategory.value =_selectedCategory.value == index ? null : index;
 }
 
+class _Category extends StatelessWidget {
+  final bool isSelected;
+  final VoidCallback onTap;
 
-
-class _category extends StatelessWidget {
-  const _category({super.key});
+  const _Category({
+    required this.onTap,
+    super.key,
+    this.isSelected = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 4, left: 4),
-      child: Container(
-        alignment: Alignment(0, 0),
-        height: 50,
-        width: 100,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(
-            color: Colors.black,
+      child: InkWellMaterial(
+        borderRadius: 45,
+        onTap: onTap,
+        child: Container(
+          alignment: Alignment(0, 0),
+          height: 50,
+          width: 100,
+          decoration: BoxDecoration(
+            color: isSelected ? Colors.black: Colors.white,
+            border: Border.all(
+              color: Colors.black,
+            ),
+            borderRadius: BorderRadius.circular(45),
           ),
-          borderRadius: BorderRadius.circular(45),
-        ),
-        child: Text(
-          'Recent',
-          style: AppTypography.labelLarge.copyWith(
-            color: Colors.black,
+          child: Text(
+            'Recent',
+            style: AppTypography.labelLarge.copyWith(
+              color: isSelected ? Colors.white: Colors.black,
+            ),
           ),
         ),
       ),
@@ -116,8 +152,8 @@ class _category extends StatelessWidget {
   }
 }
 
-class _jobCard extends StatelessWidget {
-  const _jobCard({super.key});
+class _JobCard extends StatelessWidget {
+  const _JobCard({super.key});
 
   @override
   Widget build(BuildContext context) {

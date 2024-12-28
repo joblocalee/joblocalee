@@ -1,10 +1,12 @@
 import 'dart:isolate';
 
+import 'package:injectable/injectable.dart';
 import 'package:jus/core/service/vacancy/vacancy_service_dto.dart';
 
 import '../../../utils/helper/response_helper.dart';
 import '../../networking/api.dart';
 
+@injectable
 class VacancyServices{
   final Api _api;
 

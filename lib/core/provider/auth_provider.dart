@@ -34,4 +34,51 @@ class AuthProvider extends BaseProvider {
     }
     return false;
   }
+
+  Future<bool> registration({
+      required String email,
+      required String name,
+      required String passWord,
+      required String phoneNumber,
+    }) async {
+    try {
+      setViewBusy();
+      final user = await _authServices.registration(
+        email: email,
+        name: name,
+        passWord: passWord,
+        phoneNumber: phoneNumber,
+      );
+
+      log(user.toString(), name: 'User');
+      return true;
+    }catch (e, s){
+      _errorManager.analyticsLog(
+        name: 'Registration',
+        e: e,
+        s: s,
+      );
+    }finally{
+      setViewIdeal();
+    }
+    return false;
+  }
+
+  Future<bool> logout() async {
+    try {
+      setViewBusy();
+
+      log('Logout', name: 'User');
+      return true;
+    }catch (e, s){
+      _errorManager.analyticsLog(
+        name: 'Logout',
+        e: e,
+        s: s,
+      );
+    }finally{
+      setViewIdeal();
+    }
+    return false;
+  }
 }
