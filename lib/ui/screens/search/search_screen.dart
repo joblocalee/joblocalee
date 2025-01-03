@@ -98,7 +98,11 @@ class _SearchScreenState extends State<SearchScreen> {
                     itemCount: 20,
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) => _JobCard(),
+                    itemBuilder: (context, index) => _JobCard(
+                      onTap: (){
+                        context.router.push(JobDescriptionRoute());
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -153,85 +157,94 @@ class _Category extends StatelessWidget {
 }
 
 class _JobCard extends StatelessWidget {
-  const _JobCard({super.key});
+
+  final VoidCallback onTap;
+
+  const _JobCard({
+    super.key,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Gap(AppDimensions.gapRegular),
-          Container(
-            height: 175,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  blurRadius: 10,
-                  offset: Offset(-5, 5),
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 1,
-                right: 1,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
-                        AppImages.splashImage,
-                        fit: BoxFit.fill,
-                        height: 175,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 10.0,
-                      right: 10.0,
-                      bottom: 10.0,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Sales Executive',
-                          style: AppTypography.titleLarge,
-                        ),
-                        Text(
-                          'Fulltime',
-                          style: AppTypography.bodyMedium,
-                        ),
-                        Gap(58),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SizedBox(
-                            width: 208,
-                            child: PrimaryButton(
-                              onTap: () {},
-                              text: 'Apply',
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Gap(AppDimensions.gapRegular),
+            Container(
+              height: 175,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    blurRadius: 10,
+                    offset: Offset(-5, 5),
                   ),
                 ],
               ),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 1,
+                  right: 1,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          AppImages.splashImage,
+                          fit: BoxFit.fill,
+                          height: 175,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 10.0,
+                        right: 10.0,
+                        bottom: 10.0,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Sales Executive',
+                            style: AppTypography.titleLarge,
+                          ),
+                          Text(
+                            'Fulltime',
+                            style: AppTypography.bodyMedium,
+                          ),
+                          Gap(58),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SizedBox(
+                              width: 208,
+                              child: PrimaryButton(
+                                onTap: () {},
+                                text: 'Apply',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

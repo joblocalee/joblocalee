@@ -49,12 +49,13 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(45),
                 ),
                 child: ListTile(
+                  minVerticalPadding: 15,
                   leading: CircleAvatar(
                     radius: 25,
                     child: ClipOval(
                       child: Image(
                         image: AssetImage(AppImages.profileImage),
-                        fit: BoxFit.fitWidth,
+                        fit: BoxFit.cover,
                         width: 100,
                       ),
                     ),
