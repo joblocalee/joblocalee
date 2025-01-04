@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:jus/core/routes/app_router.gr.dart';
 
+import '../../../core/routes/app_router.gr.dart';
 import '../../../utils/constants/app_images.dart';
 import '../../../utils/constants/app_dimensions.dart';
 import '../../../utils/constants/app_typography.dart';
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(
                   'New Openings',
                   style: AppTypography.headlineMedium.copyWith(
-                    fontSize: 35,
+                    fontSize: 28,
                   ),
                 ),
                 SizedBox(

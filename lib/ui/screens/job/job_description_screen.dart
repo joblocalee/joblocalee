@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:jus/ui/widgets/buttons/primary_button.dart';
 
+import '../../../utils/constants/app_images.dart';
+import '../../widgets/buttons/primary_button.dart';
 import '../../../utils/constants/app_typography.dart';
 import '../../../utils/extensions/build_context_extension.dart';
 
@@ -30,6 +31,74 @@ class JobDescriptionScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.asset(
+                                fit: BoxFit.cover,
+                                alignment: Alignment.center,
+                                AppImages.shopImage,
+                                height: MediaQuery.sizeOf(context).width * 0.5,
+                                width: MediaQuery.sizeOf(context).width,
+                              ),
+                            ),
+                            Positioned(
+                              top: 150,
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                  left: 16,
+                                  bottom: 16,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.local_convenience_store_rounded,
+                                          size: 28,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          'City Mart',
+                                          style: AppTypography.titleLarge.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 28,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.location_on_outlined,
+                                          size: 14,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          'Mainroad, Keloth, Payyanur',
+                                          style: AppTypography.bodyLarge.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -50,9 +119,6 @@ class JobDescriptionScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 8,
-                      ),
                       Padding(
                         padding: const EdgeInsets.only(
                           left: 8,
@@ -63,20 +129,6 @@ class JobDescriptionScreen extends StatelessWidget {
                             _DescriptonField(
                               icon: Icons.currency_rupee_rounded,
                               text1: '10,000 - 15,000',
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            _DescriptonField(
-                              icon: Icons.local_convenience_store_rounded,
-                              text1: 'City Mart',
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            _DescriptonField(
-                              icon: Icons.location_on_outlined,
-                              text1: 'Mainroad, Keloth, Payyanur',
                             ),
                             SizedBox(
                               height: 8,
@@ -104,9 +156,8 @@ class JobDescriptionScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Divider(
+                      SizedBox(
                         height: 16,
-                        thickness: 2,
                       ),
                       Container(
                         padding: EdgeInsets.all(16.0),
@@ -185,24 +236,32 @@ class JobDescriptionScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Divider(
-                        thickness: 2,
+                      SizedBox(
                         height: 16,
                       ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        'Job Description',
-                        style: AppTypography.titleLarge,
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                        style: AppTypography.bodyLarge.copyWith(
-                          fontSize: 16,
+                      Container(
+                        padding: EdgeInsets.all(16.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.blueGrey.shade100,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Job Description',
+                              style: AppTypography.titleLarge,
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                              style: AppTypography.bodyLarge.copyWith(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Gap(MediaQuery.paddingOf(context).bottom + 100),

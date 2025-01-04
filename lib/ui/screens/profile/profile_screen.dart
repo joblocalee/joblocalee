@@ -78,7 +78,6 @@ class ProfileScreen extends StatelessWidget {
                 child: GridView.count(
                   physics: NeverScrollableScrollPhysics(),
                   primary: false,
-                  padding: EdgeInsets.all(5.0),
                   crossAxisSpacing: 1,
                   mainAxisSpacing: 1,
                   crossAxisCount: 2,
@@ -107,14 +106,14 @@ class ProfileScreen extends StatelessWidget {
                         context.router.push(AppliedJobsRoute());
                       },
                     ),
-                    _ProfileTiles(
-                      text: 'Edit\nProfile',
-                      icon: Icons.edit_outlined,
-                      color: Colors.redAccent.shade100,
-                      onTap: (){
-                        context.router.push(EditProfileRoute());
-                      },
-                    ),
+                    // _ProfileTiles(
+                    //   text: 'Edit\nProfile',
+                    //   icon: Icons.edit_outlined,
+                    //   color: Colors.redAccent.shade100,
+                    //   onTap: (){
+                    //     context.router.push(EditProfileRoute());
+                    //   },
+                    // ),
                   ],
                 ),
               ),
@@ -174,7 +173,7 @@ class _ProfileTiles extends StatelessWidget {
                       padding: const EdgeInsets.all(10.0),
                       child: Icon(
                         icon,
-                        size: 32,
+                        size: 40,
                       ),
                     ),
                   ),
@@ -183,7 +182,8 @@ class _ProfileTiles extends StatelessWidget {
                   ),
                   Text(text,
                       style: AppTypography.titleLarge.copyWith(
-                        fontSize: 22,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
                       ),
                   ),
                 ],
