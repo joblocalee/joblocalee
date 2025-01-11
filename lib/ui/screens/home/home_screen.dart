@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
-                    itemCount: 20,
+                    itemCount: 10,
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) => _JobCard(
@@ -85,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+                Gap(MediaQuery.paddingOf(context).bottom + 100),
               ],
             ),
           ),
@@ -92,17 +93,18 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
   void _selectCategory(int index) => _selectedCategory.value = _selectedCategory.value == index ? null : index;
 }
+
+
 
 class _Category extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
   const _Category({
-    required this.onTap,
     super.key,
+    required this.onTap,
     this.isSelected = false,
   });
 
@@ -136,6 +138,8 @@ class _Category extends StatelessWidget {
   }
 }
 
+
+
 class _JobCard extends StatelessWidget {
 
   final VoidCallback onTap;
@@ -157,7 +161,7 @@ class _JobCard extends StatelessWidget {
             Gap(AppDimensions.gapRegular),
             Container(
               height: 175,
-              width: double.infinity,
+              width: double.maxFinite,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
@@ -165,7 +169,7 @@ class _JobCard extends StatelessWidget {
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
                     blurRadius: 10,
-                    offset: Offset(-5, 5),
+                    offset: Offset(0, 5),
                   ),
                 ],
               ),

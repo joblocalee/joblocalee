@@ -23,11 +23,11 @@ enum _BottomTabEnum {
       height: 28,
       route: SearchRoute()),
   profile(
-      name: 'Profile',
-      icon: Icons.person,
+      name: 'Menu',
+      icon: Icons.menu,
       width: 28,
       height: 28,
-      route: ProfileRoute());
+      route: MenuRoute());
 
   const _BottomTabEnum({
     required this.icon,
@@ -81,7 +81,7 @@ class _BottomNavigationBar extends StatelessWidget {
         .name;
 
     return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(20)),
+      borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: DecoratedBox(
         decoration: const BoxDecoration(
           color: Colors.white,
@@ -185,7 +185,7 @@ class _GBottomNav extends StatelessWidget {
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
             blurRadius: 10,
-            offset: const Offset(-5, 5),
+            offset: const Offset(0, 5),
           ),
         ],
         color: Colors.white,

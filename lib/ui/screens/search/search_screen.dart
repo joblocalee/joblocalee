@@ -2,9 +2,8 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:jus/ui/widgets/buttons/ink_well_material.dart';
-import 'package:jus/utils/constants/app_colors.dart';
 
+import '../../widgets/buttons/ink_well_material.dart';
 import '../../../core/routes/app_router.gr.dart';
 import '../../../utils/constants/app_dimensions.dart';
 import '../../../utils/constants/app_images.dart';
@@ -38,6 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: BackButton(
           onPressed: () => context.router.push(HomeRoute()),
@@ -105,6 +105,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ),
                 ),
+                Gap(MediaQuery.paddingOf(context).bottom + 100),
               ],
             ),
           ),
@@ -185,7 +186,7 @@ class _JobCard extends StatelessWidget {
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
                     blurRadius: 10,
-                    offset: Offset(-5, 5),
+                    offset: Offset(0, 5),
                   ),
                 ],
               ),

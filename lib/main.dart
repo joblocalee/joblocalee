@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jus/utils/constants/app_typography.dart';
 
+import 'utils/constants/app_typography.dart';
 import 'core/injection/injection.dart';
 import 'core/routes/app_router.dart';
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter.config(),
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           color: Color(0xFFFFFFFF),

@@ -55,8 +55,8 @@ class AppRouter extends RootStackRouter {
           path: 'search-screen',
         ),
         AutoRoute(
-          page: ProfileRoute.page,
-          path: 'profile-screen',
+          page: MenuRoute.page,
+          path: 'menu-screen',
         ),
       ],
     ),

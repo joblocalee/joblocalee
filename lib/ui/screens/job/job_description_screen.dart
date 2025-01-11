@@ -282,9 +282,7 @@ class JobDescriptionScreen extends StatelessWidget {
               ),
               child: PrimaryButton(
                 text: 'Apply',
-                onTap: (){
-
-                },
+                onTap: (){},
               ),
             ),
           ),
