@@ -1,10 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:jus/ui/widgets/primary_form_field.dart';
-import 'package:jus/ui/widgets/profile_text_field.dart';
-import 'package:jus/utils/constants/app_dimensions.dart';
 
+import '../../../utils/constants/app_dimensions.dart';
+import '../../widgets/primary_form_field.dart';
 import '../../../utils/extensions/build_context_extension.dart';
 import '../../widgets/buttons/ink_well_material.dart';
 import '../../../core/routes/app_router.gr.dart';
@@ -120,7 +119,7 @@ class MenuScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Security',
+                      'Account Security',
                       style: AppTypography.labelLarge.copyWith(
                         color: Colors.grey,
                         fontSize: 16,
@@ -286,7 +285,7 @@ class MenuScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Others',
+                      'Support',
                       style: AppTypography.labelLarge.copyWith(
                         color: Colors.grey,
                         fontSize: 16,

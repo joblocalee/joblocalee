@@ -40,7 +40,9 @@ class _SearchScreenState extends State<SearchScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: BackButton(
-          onPressed: () => context.router.push(HomeRoute()),
+          onPressed: (){
+            context.router.push(HomeRoute());
+          },
         ),
       ),
       body: SafeArea(
@@ -53,41 +55,37 @@ class _SearchScreenState extends State<SearchScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // SizedBox(
-                //   height: 50,
-                //   child: Text(
-                //     'Featured Openings',
-                //     style: AppTypography.headlineLarge.copyWith(
-                //       fontSize: 35,
-                //     ),
-                //   ),
-                // ),
-                TextField(
-                  cursorColor: Colors.black,
-                  decoration: InputDecoration(
-                      disabledBorder: InputBorder.none,
-                      fillColor: Colors.white,
-                      filled: true,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(45)),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.25),
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(15.0),
+                      border: InputBorder.none,
                       hintText: 'Search...',
-                      prefixIcon: const Icon(Icons.search_rounded)),
+                      prefixIcon: Icon(
+                        Icons.search_rounded,
+                      ),
+                    ),
+                  ),
                 ),
-                Gap(16),
+                Gap(AppDimensions.gapLarge),
                 ValueListenableBuilder(
                   valueListenable: _selectedCategory,
                   builder: (context, categoryId, child) => SizedBox(
-                      height: 40,
-                      child: ListView.builder(
-                        itemCount: 7,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => _Category(
-                          onTap: () => _selectCategory(index),
-                          isSelected: index == categoryId,
-                        ),
+                    height: 40,
+                    child: ListView.builder(
+                      itemCount: 7,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => _Category(
+                        onTap: () => _selectCategory(index),
+                        isSelected: index == categoryId,
                       ),
-                    )
+                    ),
+                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -99,7 +97,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) => _JobCard(
-                      onTap: (){
+                      onTap: () {
                         context.router.push(JobDescriptionRoute());
                       },
                     ),
@@ -114,7 +112,8 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  void _selectCategory(int index) => _selectedCategory.value =_selectedCategory.value == index ? null : index;
+  void _selectCategory(int index) =>
+      _selectedCategory.value = _selectedCategory.value == index ? null : index;
 }
 
 class _Category extends StatelessWidget {
@@ -132,23 +131,23 @@ class _Category extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 4, left: 4),
       child: InkWellMaterial(
-        borderRadius: 45,
+        borderRadius: 16.0,
         onTap: onTap,
         child: Container(
           alignment: Alignment(0, 0),
           height: 50,
           width: 100,
           decoration: BoxDecoration(
-            color: isSelected ? Colors.black: Colors.white,
+            color: isSelected ? Colors.black : Colors.white,
             border: Border.all(
               color: Colors.black,
             ),
-            borderRadius: BorderRadius.circular(45),
+            borderRadius: BorderRadius.circular(16.0),
           ),
           child: Text(
             'Recent',
             style: AppTypography.labelLarge.copyWith(
-              color: isSelected ? Colors.white: Colors.black,
+              color: isSelected ? Colors.white : Colors.black,
             ),
           ),
         ),
@@ -158,7 +157,6 @@ class _Category extends StatelessWidget {
 }
 
 class _JobCard extends StatelessWidget {
-
   final VoidCallback onTap;
 
   const _JobCard({

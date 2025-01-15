@@ -45,15 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Gap(AppDimensions.gapLarge),
                 Text(
                   'New Openings',
                   style: AppTypography.headlineMedium.copyWith(
-                    fontSize: 28,
+                    fontSize: 35,
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                Gap(AppDimensions.gapLarge),
                 SizedBox(
                   height: 40,
                   child: ValueListenableBuilder(
@@ -113,7 +112,7 @@ class _Category extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 4, left: 4),
       child: InkWellMaterial(
-        borderRadius: 45,
+        borderRadius: 16.0,
         onTap: onTap,
         child: Container(
           alignment: Alignment(0, 0),
@@ -124,7 +123,7 @@ class _Category extends StatelessWidget {
             border: Border.all(
               color: Colors.black,
             ),
-            borderRadius: BorderRadius.circular(45),
+            borderRadius: BorderRadius.circular(16.0),
           ),
           child: Text(
             'Recent',
