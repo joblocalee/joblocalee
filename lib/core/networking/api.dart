@@ -16,7 +16,7 @@ enum _DialogEnum { notFound, server, socket, timeout, other, custom, unauthorize
 
 @lazySingleton
 class Api {
-  static const String _path = 'api/app/trainer';
+  static const String _path = 'api/frontend';
 
   final SnackBarAlert _snackBarAlert;
   final Dio dio;
@@ -40,7 +40,7 @@ class Api {
     return head;
   }
 
-  String _baseUrl = '';
+  final String _baseUrl = '5ktvvggx-5000.inc1.devtunnels.ms';
 
   void setToken(String token) => _token = token;
 

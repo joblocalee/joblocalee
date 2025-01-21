@@ -2,7 +2,10 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:jus/core/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
+import '../../../core/injection/injection.dart';
 import '../../../core/routes/app_router.gr.dart';
 import '../../../utils/extensions/build_context_extension.dart';
 import '../../widgets/primary_form_field.dart';
@@ -10,8 +13,25 @@ import '../../../utils/constants/app_typography.dart';
 import '../../widgets/buttons/primary_button.dart';
 
 @RoutePage()
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget implements AutoRouteWrapper {
   const RegistrationScreen({super.key});
+
+  @override
+  Widget wrappedRoute(BuildContext context) => ChangeNotifierProvider.value(
+        value: locator<AuthProvider>(),
+        child: this,
+      );
+
+  @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _emailController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,37 +80,42 @@ class RegistrationScreen extends StatelessWidget {
                         ),
                         const Gap(10),
                         PrimaryFormField(
-                          lText: 'Username',
+                          controller: _nameController,
+                          lText: 'Name',
                           prefix: Icon(Icons.alternate_email),
                         ),
                         const Gap(10),
                         PrimaryFormField(
-                            lText: 'Name', prefix: Icon(Icons.account_circle)),
+                            controller: _phoneController,
+                            lText: 'Phone Number',
+                            prefix: Icon(Icons.phone)),
                         const Gap(10),
                         PrimaryFormField(
-                            lText: 'Phone Number', prefix: Icon(Icons.phone)),
-                        const Gap(10),
-                        PrimaryFormField(lText: 'E-mail', prefix: Icon(Icons.email)),
+                            controller: _emailController,
+                            lText: 'E-mail',
+                            prefix: Icon(Icons.email)),
                         const Gap(10),
                         PrimaryFormField(
+                          controller: _passwordController,
                           lText: 'Password',
                           prefix: Icon(Icons.lock),
                           isPassWord: true,
                         ),
                         const Gap(10),
                         PrimaryFormField(
+                          controller: _confirmPasswordController,
                           lText: 'Confirm Password',
                           prefix: Icon(Icons.lock),
                           isPassWord: true,
                         ),
                         const Gap(50),
-                        PrimaryButton(
-                          text: 'Sign Up',
-                          onTap: () {
-                            context.router.push(
-                              HomeTabRoute(),
+                        Consumer<AuthProvider>(
+                          builder: (context, provider, _) {
+                            return PrimaryButton(
+                              text: 'Sign Up',
+                              onTap: _register,
                             );
-                          },
+                          }
                         ),
                       ],
                     ),
@@ -102,5 +127,17 @@ class RegistrationScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _register() async {
+    await context.read<AuthProvider>().registration(
+          email: _emailController.text,
+          name: _nameController.text,
+          passWord: _passwordController.text,
+          phoneNumber: _phoneController.text,
+        );
+    if (mounted) {
+      context.router.replaceAll(const [HomeTabRoute()]);
+    }
   }
 }

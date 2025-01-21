@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           physics: BouncingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: context.screenPadding * 0.5,
+              horizontal: context.screenPadding,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,20 +68,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    itemCount: 10,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) => _JobCard(
-                      onTap: () {
-                        context.router.push(JobDescriptionRoute());
-                      },
-                    ),
+                ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: 10,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) => _JobCard(
+                    onTap: () {
+                      context.router.push(JobDescriptionRoute());
+                    },
                   ),
                 ),
                 Gap(MediaQuery.paddingOf(context).bottom + 100),
@@ -92,10 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
   void _selectCategory(int index) => _selectedCategory.value = _selectedCategory.value == index ? null : index;
 }
-
-
 
 class _Category extends StatelessWidget {
   final bool isSelected;
@@ -119,7 +113,7 @@ class _Category extends StatelessWidget {
           height: 50,
           width: 100,
           decoration: BoxDecoration(
-            color: isSelected ? Colors.black: Colors.white,
+            color: isSelected ? Colors.black : Colors.white,
             border: Border.all(
               color: Colors.black,
             ),
@@ -128,7 +122,7 @@ class _Category extends StatelessWidget {
           child: Text(
             'Recent',
             style: AppTypography.labelLarge.copyWith(
-              color: isSelected ? Colors.white: Colors.black,
+              color: isSelected ? Colors.white : Colors.black,
             ),
           ),
         ),
@@ -137,10 +131,7 @@ class _Category extends StatelessWidget {
   }
 }
 
-
-
 class _JobCard extends StatelessWidget {
-
   final VoidCallback onTap;
 
   const _JobCard({
@@ -150,83 +141,64 @@ class _JobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Gap(AppDimensions.gapRegular),
-            Container(
-              height: 175,
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    blurRadius: 10,
-                    offset: Offset(0, 5),
+    return Padding(
+      padding: EdgeInsets.only(
+        top: 16.0,
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onTap,
+        child: Container(
+          height: 175,
+          width: double.maxFinite,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
+                    AppImages.splashImage,
+                    fit: BoxFit.fill,
+                    height: 175,
                   ),
-                ],
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: 1,
-                  right: 1,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          AppImages.splashImage,
-                          fit: BoxFit.fill,
-                          height: 175,
-                        ),
+                const Gap(10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Sales Executive',
+                        style: AppTypography.titleLarge,
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: 10.0,
-                        right: 10.0,
-                        bottom: 10.0,
+                      Text(
+                        'Fulltime',
+                        style: AppTypography.bodyMedium,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Sales Executive',
-                            style: AppTypography.titleLarge,
-                          ),
-                          Text(
-                            'Fulltime',
-                            style: AppTypography.bodyMedium,
-                          ),
-                          Gap(58),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: SizedBox(
-                              width: 208,
-                              child: PrimaryButton(
-                                onTap: () {},
-                                text: 'Apply',
-                              ),
-                            ),
-                          ),
-                        ],
+                      const Spacer(),
+                      PrimaryButton(
+                        onTap: () {},
+                        text: 'Apply',
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

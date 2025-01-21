@@ -48,6 +48,7 @@ dependencies:
   dio: ^5.7.0
   dio_http2_adapter: ^2.5.3
   json_annotation: ^4.9.0
+  flutter_hooks: ^0.20.5
 
 dev_dependencies:
   auto_route_generator: ^9.0.0

@@ -13,4 +13,6 @@ extension SafePaddingExtension on BuildContext {
       (MediaQuery.sizeOf(this).width * 0.05).clamp(16, 24);
 
   double get bottomInset => MediaQuery.viewInsetsOf(this).bottom;
+
+  double get height => MediaQuery.sizeOf(this).height;
 }

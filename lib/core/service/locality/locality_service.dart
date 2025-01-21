@@ -1,31 +1,30 @@
 import 'dart:isolate';
 
 import 'package:injectable/injectable.dart';
-import 'package:jus/core/service/vacancy/vacancy_service_dto.dart';
 
 import '../../../utils/helper/response_helper.dart';
 import '../../networking/api.dart';
+import 'locality_service_dto.dart';
 
 @injectable
-class VacancyServices{
+class LocalityService {
   final Api _api;
 
-  VacancyServices(this._api);
+  LocalityService(this._api);
 
-  Future<VacancyServiceDto> getVacancy() async {
+  Future<LocalityServiceDto> getLocality() async {
     final response = await _api.httpGet(
-
-      endPath: 'https://dummyjson.com/vacancy',
+      endPath: '',
     );
 
     return Isolate.run(
-          () {
+      () {
         final Map<String, dynamic> responseData =
-        ResponseChecker.getSuccessData(
+            ResponseChecker.getSuccessData(
           response: response,
         );
 
-        return VacancyServiceDto.fromJson(responseData);
+        return LocalityServiceDto.fromJson(responseData);
       },
     );
   }

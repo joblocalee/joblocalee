@@ -27,12 +27,13 @@ class MenuScreen extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: context.screenPadding * 0.75,
+              horizontal: context.screenPadding,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWellMaterial(
+                  borderRadius: 45,
                   onTap: () {
                     context.router.push(ProfileRoute());
                   },
@@ -78,22 +79,20 @@ class MenuScreen extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                SizedBox(
-                  height: 145,
-                  child: GridView.count(
-                    physics: NeverScrollableScrollPhysics(),
-                    primary: false,
-                    crossAxisCount: 3,
-                    children: [
-                      _ProfileTile(
-                        text: 'Edit\nProfile',
-                        icon: Icons.edit_outlined,
-                        color: Colors.blueAccent.shade100,
-                        onTap: () {
-                          context.router.push(EditProfileRoute());
-                        },
-                      ),
-                      _ProfileTile(
+                Row(
+                  children: [
+                    // Expanded(
+                    //   child: _ProfileTile(
+                    //     text: 'Edit\nProfile',
+                    //     icon: Icons.edit_outlined,
+                    //     color: Colors.blueAccent.shade100,
+                    //     onTap: () {
+                    //       context.router.push(EditProfileRoute());
+                    //     },
+                    //   ),
+                    // ),
+                    Expanded(
+                      child: _ProfileTile(
                         text: 'Applied\nJobs',
                         icon: Icons.work_outline_rounded,
                         color: Colors.amberAccent.shade100,
@@ -101,7 +100,9 @@ class MenuScreen extends StatelessWidget {
                           context.router.push(AppliedJobsRoute());
                         },
                       ),
-                      _ProfileTile(
+                    ),
+                    Expanded(
+                      child: _ProfileTile(
                         text: 'App\nNotifications',
                         icon: Icons.notifications_none,
                         color: Colors.greenAccent.shade100,
@@ -109,8 +110,8 @@ class MenuScreen extends StatelessWidget {
                           context.router.push(AppNotificationRoute());
                         },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 10,
@@ -144,6 +145,17 @@ class MenuScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          _CategoryTile(
+                            icon: Icons.edit_outlined,
+                            text: 'Update Profile',
+                            onTap: () {
+                              context.router.push(EditProfileRoute());
+                            },
+                          ),
+                          Divider(
+                            color: Colors.grey.withOpacity(0.25),
+                            thickness: 2,
+                          ),
                           _CategoryTile(
                             icon: Icons.lock_outline_rounded,
                             text: 'Upadte Password',
@@ -195,84 +207,6 @@ class MenuScreen extends StatelessWidget {
                               );
                             },
                           ),
-                          Divider(
-                            color: Colors.grey.withOpacity(0.25),
-                            thickness: 2,
-                          ),
-                          _CategoryTile(
-                            icon: Icons.mail_outline_rounded,
-                            text: 'Update Email',
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return Container(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: context.screenPadding,
-                                        vertical: context.screenPadding,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            'Update E-mail',
-                                            style: AppTypography.titleLarge,
-                                          ),
-                                          Gap(AppDimensions.gapMedium),
-                                          PrimaryFormField(
-                                            lText: 'E-mail',
-                                            prefix: Icon(
-                                              Icons.email_outlined,
-                                            ),
-                                            isPassWord: false,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                          Divider(
-                            color: Colors.grey.withOpacity(0.25),
-                            thickness: 2,
-                          ),
-                          _CategoryTile(
-                            icon: Icons.phone,
-                            text: 'Upadte Phone Number',
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return Container(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: context.screenPadding,
-                                        vertical: context.screenPadding,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            'Update Phone Number',
-                                            style: AppTypography.titleLarge,
-                                          ),
-                                          Gap(AppDimensions.gapMedium),
-                                          PrimaryFormField(
-                                            lText: 'Phone Number',
-                                            prefix: Icon(
-                                              Icons.phone,
-                                            ),
-                                            isPassWord: false,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
                         ],
                       ),
                     ),
@@ -311,6 +245,15 @@ class MenuScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _CategoryTile(
+                            icon: Icons.feedback_outlined,
+                            text: 'FAQ',
+                            onTap: () {},
+                          ),
+                          Divider(
+                            color: Colors.grey.withOpacity(0.25),
+                            thickness: 2,
+                          ),
+                          _CategoryTile(
                             icon: Icons.support_agent_rounded,
                             text: 'Help & Support',
                             onTap: () {},
@@ -320,8 +263,8 @@ class MenuScreen extends StatelessWidget {
                             thickness: 2,
                           ),
                           _CategoryTile(
-                            icon: Icons.feedback_outlined,
-                            text: 'Feedback',
+                            icon: Icons.description_outlined,
+                            text: 'Terms & Conditions',
                             onTap: () {},
                           ),
                         ],
@@ -355,6 +298,7 @@ class _ProfileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(20),
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.all(4.0),
@@ -374,7 +318,7 @@ class _ProfileTile extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Column(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DecoratedBox(
@@ -390,9 +334,7 @@ class _ProfileTile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 16,
-                  ),
+                  Gap(AppDimensions.gapRegular),
                   Text(
                     text,
                     style: AppTypography.titleLarge.copyWith(
@@ -425,6 +367,7 @@ class _CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWellMaterial(
+      borderRadius: 20,
       onTap: onTap,
       child: ListTile(
         contentPadding: EdgeInsets.all(8.0),
