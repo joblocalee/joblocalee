@@ -38,19 +38,13 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: BackButton(
-          onPressed: (){
-            context.router.push(HomeRoute());
-          },
-        ),
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: context.screenPadding,
+              vertical: context.screenPadding,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

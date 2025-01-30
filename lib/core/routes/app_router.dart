@@ -42,10 +42,6 @@ class AppRouter extends RootStackRouter {
       path: '/appNotification',
     ),
     AutoRoute(
-      page:AppliedJobDescriptionRoute.page,
-      path: '/appliedJobDescription',
-    ),
-    AutoRoute(
       page: HomeTabRoute.page,
       path: '/',
       children: [

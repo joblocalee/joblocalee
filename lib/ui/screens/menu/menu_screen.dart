@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../utils/constants/app_dimensions.dart';
+import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/primary_form_field.dart';
 import '../../../utils/extensions/build_context_extension.dart';
 import '../../widgets/buttons/ink_well_material.dart';
@@ -17,265 +18,280 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(
-          onPressed: () => context.router.push(HomeRoute()),
-        ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: context.screenPadding,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InkWellMaterial(
-                  borderRadius: 45,
-                  onTap: () {
-                    context.router.push(ProfileRoute());
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      top: 10,
+      body: Stack(
+        children: [
+          SizedBox.expand(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: context.screenPadding,
+                  right: context.screenPadding,
+                  top: context.safeTopStrict + 20,
+                  bottom: context.safeBottom,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InkWellMaterial(
+                      borderRadius: 45,
+                      onTap: () {
+                        context.router.push(ProfileRoute());
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(45),
+                        ),
+                        child: ListTile(
+                          minVerticalPadding: 15,
+                          leading: CircleAvatar(
+                            radius: 25,
+                            child: ClipOval(
+                              child: Image(
+                                image: AssetImage(AppImages.profileImage2),
+                                fit: BoxFit.cover,
+                                width: 100,
+                              ),
+                            ),
+                          ),
+                          title: Text(
+                            'Muhammed Shamil',
+                            style: AppTypography.titleLarge,
+                          ),
+                          subtitle: Text(
+                            'muhammedshamil@joblocalee.com',
+                            style: AppTypography.bodyMedium,
+                          ),
+                        ),
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          blurRadius: 10,
-                          offset: const Offset(0, 5),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      children: [
+                        // Expanded(
+                        //   child: _ProfileTile(
+                        //     text: 'Edit\nProfile',
+                        //     icon: Icons.edit_outlined,
+                        //     color: Colors.blueAccent.shade100,
+                        //     onTap: () {
+                        //       context.router.push(EditProfileRoute());
+                        //     },
+                        //   ),
+                        // ),
+                        Expanded(
+                          child: _ProfileTile(
+                            text: 'Applied\nJobs',
+                            icon: Icons.work_outline_rounded,
+                            color: Colors.amberAccent.shade100,
+                            onTap: () {
+                              context.router.push(AppliedJobsRoute());
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: _ProfileTile(
+                            text: 'App\nNotifications',
+                            icon: Icons.notifications_none,
+                            color: Colors.greenAccent.shade100,
+                            onTap: () {
+                              context.router.push(AppNotificationRoute());
+                            },
+                          ),
                         ),
                       ],
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(45),
                     ),
-                    child: ListTile(
-                      minVerticalPadding: 15,
-                      leading: CircleAvatar(
-                        radius: 25,
-                        child: ClipOval(
-                          child: Image(
-                            image: AssetImage(AppImages.profileImage2),
-                            fit: BoxFit.cover,
-                            width: 100,
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Account Settings',
+                          style: AppTypography.labelLarge.copyWith(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                      ),
-                      title: Text(
-                        'Muhammed Shamil',
-                        style: AppTypography.titleLarge,
-                      ),
-                      subtitle: Text(
-                        'muhammedshamil@joblocalee.com',
-                        style: AppTypography.bodyMedium,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  children: [
-                    // Expanded(
-                    //   child: _ProfileTile(
-                    //     text: 'Edit\nProfile',
-                    //     icon: Icons.edit_outlined,
-                    //     color: Colors.blueAccent.shade100,
-                    //     onTap: () {
-                    //       context.router.push(EditProfileRoute());
-                    //     },
-                    //   ),
-                    // ),
-                    Expanded(
-                      child: _ProfileTile(
-                        text: 'Applied\nJobs',
-                        icon: Icons.work_outline_rounded,
-                        color: Colors.amberAccent.shade100,
-                        onTap: () {
-                          context.router.push(AppliedJobsRoute());
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: _ProfileTile(
-                        text: 'App\nNotifications',
-                        icon: Icons.notifications_none,
-                        color: Colors.greenAccent.shade100,
-                        onTap: () {
-                          context.router.push(AppNotificationRoute());
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Account Security',
-                      style: AppTypography.labelLarge.copyWith(
-                        color: Colors.grey,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                blurRadius: 10,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
+                            color: Colors.white,
                           ),
-                        ],
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _CategoryTile(
-                            icon: Icons.edit_outlined,
-                            text: 'Update Profile',
-                            onTap: () {
-                              context.router.push(EditProfileRoute());
-                            },
-                          ),
-                          Divider(
-                            color: Colors.grey.withOpacity(0.25),
-                            thickness: 2,
-                          ),
-                          _CategoryTile(
-                            icon: Icons.lock_outline_rounded,
-                            text: 'Upadte Password',
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return Container(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: context.screenPadding,
-                                        vertical: context.screenPadding,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            'Update Password',
-                                            style: AppTypography.titleLarge,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _CategoryTile(
+                                icon: Icons.edit_outlined,
+                                text: 'Update Profile',
+                                onTap: () {
+                                  context.router.push(EditProfileRoute());
+                                },
+                              ),
+                              Divider(
+                                color: Colors.grey.withOpacity(0.25),
+                                thickness: 2,
+                              ),
+                              _CategoryTile(
+                                icon: Icons.lock_outline_rounded,
+                                text: 'Upadte Password',
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return Container(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: context.screenPadding,
+                                            vertical: context.screenPadding,
                                           ),
-                                          Gap(AppDimensions.gapMedium),
-                                          PrimaryFormField(
-                                            lText: 'Current Password',
-                                            prefix: Icon(
-                                              Icons.lock_outline_rounded,
-                                            ),
-                                            isPassWord: true,
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                'Update Password',
+                                                style: AppTypography.titleLarge,
+                                              ),
+                                              Gap(AppDimensions.gapMedium),
+                                              PrimaryFormField(
+                                                lText: 'Current Password',
+                                                prefix: Icon(
+                                                  Icons.lock_outline_rounded,
+                                                ),
+                                                isPassWord: true,
+                                              ),
+                                              Gap(AppDimensions.gapMedium),
+                                              PrimaryFormField(
+                                                lText: 'New Password',
+                                                prefix: Icon(
+                                                  Icons.lock_outline_rounded,
+                                                ),
+                                                isPassWord: true,
+                                              ),
+                                              Gap(AppDimensions.gapMedium),
+                                              PrimaryFormField(
+                                                lText: 'Retype Password',
+                                                prefix: Icon(
+                                                  Icons.lock_outline_rounded,
+                                                ),
+                                                isPassWord: true,
+                                              ),
+                                            ],
                                           ),
-                                          Gap(AppDimensions.gapMedium),
-                                          PrimaryFormField(
-                                            lText: 'New Password',
-                                            prefix: Icon(
-                                              Icons.lock_outline_rounded,
-                                            ),
-                                            isPassWord: true,
-                                          ),
-                                          Gap(AppDimensions.gapMedium),
-                                          PrimaryFormField(
-                                            lText: 'Retype Password',
-                                            prefix: Icon(
-                                              Icons.lock_outline_rounded,
-                                            ),
-                                            isPassWord: true,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
-                              );
-                            },
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Support',
-                      style: AppTypography.labelLarge.copyWith(
-                        color: Colors.grey,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
+                        ),
+                      ],
                     ),
                     SizedBox(
-                      height: 4,
+                      height: 20,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Support',
+                          style: AppTypography.labelLarge.copyWith(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
                           ),
-                        ],
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _CategoryTile(
-                            icon: Icons.feedback_outlined,
-                            text: 'FAQ',
-                            onTap: () {},
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                blurRadius: 10,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
+                            color: Colors.white,
                           ),
-                          Divider(
-                            color: Colors.grey.withOpacity(0.25),
-                            thickness: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _CategoryTile(
+                                icon: Icons.feedback_outlined,
+                                text: 'FAQ',
+                                onTap: () {},
+                              ),
+                              Divider(
+                                color: Colors.grey.withOpacity(0.25),
+                                thickness: 2,
+                              ),
+                              _CategoryTile(
+                                icon: Icons.support_agent_rounded,
+                                text: 'Help & Support',
+                                onTap: () {},
+                              ),
+                              Divider(
+                                color: Colors.grey.withOpacity(0.25),
+                                thickness: 2,
+                              ),
+                              _CategoryTile(
+                                icon: Icons.description_outlined,
+                                text: 'Terms & Conditions',
+                                onTap: () {},
+                              ),
+                            ],
                           ),
-                          _CategoryTile(
-                            icon: Icons.support_agent_rounded,
-                            text: 'Help & Support',
-                            onTap: () {},
-                          ),
-                          Divider(
-                            color: Colors.grey.withOpacity(0.25),
-                            thickness: 2,
-                          ),
-                          _CategoryTile(
-                            icon: Icons.description_outlined,
-                            text: 'Terms & Conditions',
-                            onTap: () {},
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
+                    Gap( 100),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+          Positioned(
+            bottom: context.safeBottom,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: context.screenPadding,
+                vertical: context.screenPadding,
+              ),
+              child: PrimaryButton(
+                text: 'Apply',
+                onTap: (){},
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

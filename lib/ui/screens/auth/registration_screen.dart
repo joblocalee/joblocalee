@@ -2,9 +2,9 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:jus/core/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/provider/auth_provider.dart';
 import '../../../core/injection/injection.dart';
 import '../../../core/routes/app_router.gr.dart';
 import '../../../utils/extensions/build_context_extension.dart';
@@ -130,7 +130,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   Future<void> _register() async {
-    await context.read<AuthProvider>().registration(
+    await context.read<AuthProvider>().register(
           email: _emailController.text,
           name: _nameController.text,
           passWord: _passwordController.text,

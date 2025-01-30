@@ -8,22 +8,31 @@ import 'package:http_parser/http_parser.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mime/mime.dart';
 
+import '../repository/settings_repository.dart';
 import '../../../utils/snack_bar/snack_bar_alert.dart';
-import '../injection/injection.dart';
+// import '../injection/injection.dart';
 // import '../provider/auth_provider/auth_provider.dart';
 
 enum _DialogEnum { notFound, server, socket, timeout, other, custom, unauthorized }
 
 @lazySingleton
 class Api {
-  static const String _path = 'api/frontend';
+  final SettingsRepository _settingsRepository;
+
+  static const String _path = '';
 
   final SnackBarAlert _snackBarAlert;
   final Dio dio;
 
-  String _token = '';
+  String get _token {
+    if(_settingsRepository.settings.isLoggedIn) {
+      return _settingsRepository.settings.token;
+    } else {
+      return '';
+    }
+  }
 
-  Api(this._snackBarAlert, this.dio);
+  Api(this._snackBarAlert, this.dio, this._settingsRepository);
 
   Map<String, String> get _headers {
     final Map<String, String> head = {
@@ -40,9 +49,9 @@ class Api {
     return head;
   }
 
-  final String _baseUrl = '5ktvvggx-5000.inc1.devtunnels.ms';
+  final String _baseUrl = '';
 
-  void setToken(String token) => _token = token;
+  void setToken(String token) => _token;
 
   Future<Response?> httpGet({
     required String endPath,

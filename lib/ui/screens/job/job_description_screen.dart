@@ -17,9 +17,7 @@ class JobDescriptionScreen extends StatelessWidget {
       appBar: AppBar(),
       body: Stack(
         children: [
-          SizedBox(
-            height: MediaQuery.sizeOf(context).height,
-            width: MediaQuery.sizeOf(context).width,
+          SizedBox.expand(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: SafeArea(

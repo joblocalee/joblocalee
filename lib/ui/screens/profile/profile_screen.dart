@@ -1,263 +1,244 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:jus/utils/constants/app_dimensions.dart';
 
+import '../../../utils/constants/app_typography.dart';
 import '../../../utils/extensions/build_context_extension.dart';
 import '../../../core/routes/app_router.gr.dart';
-import '../../../utils/constants/app_typography.dart';
+import '../../../utils/constants/app_images.dart';
 
 @RoutePage()
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool _isPersonalInfoExpanded = false;
+  bool _isContactInfoExpanded = false;
+  bool _isAcademicInfoExpanded = false;
+
+  void _toggleExpansion(bool Function() currentStatus) {
+    setState(() {
+      currentStatus();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
+        title: Text(
+          'Your Profile',
+          style: AppTypography.titleLarge,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
           onPressed: () {
-            context.router.push(MenuRoute());
+            context.router.maybePop();
           },
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit_outlined),
+            onPressed: () {
+              context.router.push(const EditProfileRoute());
+            },
+          ),
+        ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: context.screenPadding,
-            ),
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+        child: ListView(
+          children: [
+            Center(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.screenPadding,
                   ),
                   child: Column(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.25),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
+                      CircleAvatar(
+                        backgroundImage: AssetImage(
+                          AppImages.profileImage2,
                         ),
-                        padding: EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.account_circle_outlined,
-                              size: 20.0,
-                            ),
-                            Gap(4.0),
-                            Text(
-                              'About Me',
-                              style: AppTypography.bodyLarge.copyWith(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            )
-                          ],
+                        radius: 50,
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        'Muhammed Shamil',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 16,
-                          left: 16,
-                          right: 16,
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _CategoryTile(
-                                titleText: 'Name',
-                                subText: 'Muhammed Shamil',
-                              ),
-                              Divider(
-                                color: Colors.grey.withOpacity(0.25),
-                                thickness: 2,
-                              ),
-                              _CategoryTile(
-                                titleText: 'Age',
-                                subText: '21',
-                              ),
-                              Divider(
-                                color: Colors.grey.withOpacity(0.25),
-                                thickness: 2,
-                              ),
-                              _CategoryTile(
-                                titleText: 'Email',
-                                subText: 'muhammedshamil@gmail.com',
-                              ),
-                              Divider(
-                                color: Colors.grey.withOpacity(0.25),
-                                thickness: 2,
-                              ),
-                              _CategoryTile(
-                                titleText: 'Phone Number',
-                                subText: '+91 98765 43210',
-                              ),
-                            ],
-                          ),
-                        ),
+                      Text(
+                        'muhammedshamil@joblocalee.com',
                       ),
                     ],
                   ),
                 ),
-                Gap(AppDimensions.gapXXL),
-                Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.25),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                        ),
-                        padding: EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.school_outlined,
-                              size: 20.0,
-                            ),
-                            Gap(4.0),
-                            Text(
-                              'Academics',
-                              style: AppTypography.bodyLarge.copyWith(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 16,
-                          left: 16,
-                          right: 16,
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _CategoryTile(
-                                titleText: 'Name',
-                                subText: 'Muhammed Shamil',
-                              ),
-                              Divider(
-                                color: Colors.grey.withOpacity(0.25),
-                                thickness: 2,
-                              ),
-                              _CategoryTile(
-                                titleText: 'Age',
-                                subText: '21',
-                              ),
-                              Divider(
-                                color: Colors.grey.withOpacity(0.25),
-                                thickness: 2,
-                              ),
-                              _CategoryTile(
-                                titleText: 'Email',
-                                subText: 'muhammedshamil@gmail.com',
-                              ),
-                              Divider(
-                                color: Colors.grey.withOpacity(0.25),
-                                thickness: 2,
-                              ),
-                              _CategoryTile(
-                                titleText: 'Phone Number',
-                                subText: '+91 98765 43210',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Gap(MediaQuery.paddingOf(context).bottom + 100),
-              ],
+              ),
             ),
-          ),
+            const SizedBox(
+              height: 24,
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.person_outline,
+              ),
+              title: const Text(
+                'Personal Details',
+              ),
+              trailing: Icon(_isPersonalInfoExpanded
+                  ? Icons.keyboard_arrow_up
+                  : Icons.keyboard_arrow_down),
+              onTap: () => _toggleExpansion(
+                  () => _isPersonalInfoExpanded = !_isPersonalInfoExpanded),
+            ),
+            AnimatedContainer(
+              duration: const Duration(
+                milliseconds: 300,
+              ),
+              child: _isPersonalInfoExpanded
+                  ? const Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            'Maksudur Rahman',
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            'maksud.design7@gmail.com',
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            '+880 1924699597',
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            '119 North Jatrabari, Dhaka 1204',
+                          ),
+                        ),
+                      ],
+                    )
+                  : const SizedBox(
+                      width: double.infinity,
+                    ),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.phone,
+              ),
+              title: const Text(
+                'Contact Details',
+              ),
+              trailing: Icon(_isContactInfoExpanded
+                  ? Icons.keyboard_arrow_up
+                  : Icons.keyboard_arrow_down),
+              onTap: () => _toggleExpansion(
+                  () => _isContactInfoExpanded = !_isContactInfoExpanded),
+            ),
+            AnimatedContainer(
+              duration: const Duration(
+                milliseconds: 300,
+              ),
+              child: _isContactInfoExpanded
+                  ? const Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            'Maksudur Rahman',
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            'maksud.design7@gmail.com',
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            '+880 1924699597',
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            '119 North Jatrabari, Dhaka 1204',
+                          ),
+                        ),
+                      ],
+                    )
+                  : const SizedBox(
+                      width: double.infinity,
+                    ),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.library_books_outlined,
+              ),
+              title: const Text(
+                'Academic Details',
+              ),
+              trailing: Icon(_isAcademicInfoExpanded
+                  ? Icons.keyboard_arrow_up
+                  : Icons.keyboard_arrow_down),
+              onTap: () => _toggleExpansion(
+                  () => _isAcademicInfoExpanded = !_isAcademicInfoExpanded),
+            ),
+            AnimatedContainer(
+              duration: const Duration(
+                milliseconds: 300,
+              ),
+              child: _isAcademicInfoExpanded
+                  ? const Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            'Maksudur Rahman',
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            'maksud.design7@gmail.com',
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            '+880 1924699597',
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            '119 North Jatrabari, Dhaka 1204',
+                          ),
+                        ),
+                      ],
+                    )
+                  : const SizedBox(
+                      width: double.infinity,
+                    ),
+            ),
+          ],
         ),
       ),
     );
   }
-}
 
-class _CategoryTile extends StatelessWidget {
-  final String titleText;
-  final String subText;
-
-  const _CategoryTile({
-    super.key,
-    required this.titleText,
-    required this.subText,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-        ),
-      ),
-      child: ListTile(
-        contentPadding: EdgeInsets.all(8.0),
-        minTileHeight: 1,
-        title: Text(
-          titleText,
-          style: AppTypography.labelLarge.copyWith(
-            color: Colors.black45,
-            fontWeight: FontWeight.w500,
-            fontSize: 16,
-          ),
-        ),
-        subtitle: Text(
-          subText,
-          style: AppTypography.labelLarge.copyWith(
-            color: Colors.black,
-            fontWeight: FontWeight.w500,
-            fontSize: 20,
-          ),
-        ),
-      ),
+  Widget _buildProfileOption({
+    required IconData icon,
+    required String title,
+  }) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      trailing: const Icon(Icons.arrow_forward_ios),
     );
   }
 }

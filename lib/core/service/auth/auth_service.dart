@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import '../../model/user/user_model.dart';
 import '../../networking/api.dart';
 import '../../../utils/helper/response_helper.dart';
+import 'user_service_dto.dart';
 
 @injectable
 class AuthServices {
@@ -12,7 +13,7 @@ class AuthServices {
 
   AuthServices(this._api);
 
-  Future<UserModel> login({
+  Future<UserServiceDto> login({
     required String email,
     required String passWord,
   }) async {
@@ -31,12 +32,12 @@ class AuthServices {
           response: response,
         );
 
-        return UserModel.fromJson(responseData);
+        return UserServiceDto.fromJson(responseData);
       },
     );
   }
 
-  Future<UserModel> registration(
+  Future<UserModel> register(
       {required String email,
       required String name,
       required String passWord,

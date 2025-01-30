@@ -10,6 +10,7 @@ part 'user_service_dto.g.dart';
 class UserServiceDto with _$UserServiceDto {
   const factory UserServiceDto({
     @JsonKey(name: 'user') required UserModel user,
+    @JsonKey(name: 'accessToken') required String token,
   }) = _UserServiceDto;
 
   factory UserServiceDto.fromJson(Map<String, dynamic> json) => _$UserServiceDtoFromJson(json);

@@ -1,127 +1,110 @@
-import 'dart:developer';
-
 import 'package:injectable/injectable.dart';
 
-import 'base/base_provider.dart';
 import '../../utils/helper/error_manager.dart';
+import '../../utils/snack_bar/snack_bar_alert.dart';
+import '../model/user/user_model.dart';
+import '../repository/settings_repository.dart';
+import '../repository/user_repository.dart';
+import '../routes/app_router.dart';
+import '../routes/app_router.gr.dart';
 import '../service/auth/auth_service.dart';
+import 'base/base_provider.dart';
 
 @lazySingleton
 class AuthProvider extends BaseProvider {
   final AuthServices _authServices;
   final ErrorManager _errorManager;
+  final SettingsRepository _settingsRepository;
+  final SnackBarAlert _snackBarAlert;
+  final UserRepository _userRepository;
+  final AppRouter _appRouter;
 
   AuthProvider(
-    this._authServices,
-    this._errorManager,
-  );
+      this._authServices,
+      this._errorManager,
+      this._snackBarAlert,
+      this._userRepository,
+      this._appRouter,
+      this._settingsRepository,
+      );
 
-  Future<bool> login({
-    required String email,
-    required String passWord,
-  }) async {
+  UserModel? _user;
+
+  UserModel? get user {
+    _user ??= _userRepository.user;
+    if (_user == null) {
+      logout();
+      return null;
+    }
+    return _user;
+  }
+
+  Future<bool> login({required String email, required String passWord}) async {
     try {
       setViewBusy();
-      final user = await _authServices.login(
+      final response = await _authServices.login(
         email: email,
         passWord: passWord,
       );
 
-      log(user.toString(), name: 'User');
+      _userRepository.save(response.user);
+      _settingsRepository.saveToken(response.token);
+      _user = response.user;
+
+      _snackBarAlert.showToast(message: 'Login Successful');
+      start();
       return true;
     } catch (e, s) {
-      _errorManager.analyticsLog(
-        name: 'Login',
-        e: e,
-        s: s,
-      );
+      _errorManager.analyticsLog(name: 'Login', e: e, s: s);
     } finally {
       setViewIdeal();
     }
     return false;
   }
 
-  Future<bool> registration({
+  Future<bool> register({
     required String email,
-    required String name,
     required String passWord,
     required String phoneNumber,
-  }) async {
-    try {
-      setViewBusy();
-      final user = await _authServices.registration(
-        email: email,
-        name: name,
-        passWord: passWord,
-        phoneNumber: phoneNumber,
-      );
-
-      log(user.toString(), name: 'User');
-      return true;
-    } catch (e, s) {
-      _errorManager.analyticsLog(
-        name: 'Registration',
-        e: e,
-        s: s,
-      );
-    } finally {
-      setViewIdeal();
-    }
-    return false;
-  }
-
-  Future<bool> logout() async {
-    try {
-      setViewBusy();
-
-      log('Logout', name: 'User');
-      return true;
-    } catch (e, s) {
-      _errorManager.analyticsLog(
-        name: 'Logout',
-        e: e,
-        s: s,
-      );
-    } finally   {
-      setViewIdeal();
-    }
-    return false;
-  }
-
-  Future<bool> editProfile({
-    required String email,
     required String name,
-    required String phoneNumber,
-    required String address,
-    required String locality,
-    required String education,
-    required String gender,
-    required String languages,
   }) async {
     try {
       setViewBusy();
-      final user = await _authServices.editProfile(
+      await _authServices.register(
         email: email,
+        passWord: passWord,
         name: name,
         phoneNumber: phoneNumber,
-        address: address,
-        locality: locality,
-        education: education,
-        gender: gender,
-        languages: languages,
       );
 
-      log(user.toString(), name: 'User');
+      // log(user.toString(), name: 'User');
       return true;
     } catch (e, s) {
-      _errorManager.analyticsLog(
-        name: 'Edit-Profile',
-        e: e,
-        s: s,
-      );
+      _errorManager.analyticsLog(name: 'Register', e: e, s: s);
     } finally {
       setViewIdeal();
     }
     return false;
+  }
+
+  Future<void> logout() async {
+    await _userRepository.reset();
+    await _settingsRepository.reset();
+    start();
+  }
+
+  Future<void> unAuthenticatedLogout() async {
+    if (_settingsRepository.settings.isLoggedIn) {
+      await logout();
+    }
+  }
+
+  void start() {
+    if (!_settingsRepository.settings.isLoggedIn) {
+      _appRouter.replaceAll([const LoginRoute()]);
+    } else {
+      _user = _userRepository.user;
+      _appRouter.replaceAll([const HomeRoute()]);
+    }
   }
 }
