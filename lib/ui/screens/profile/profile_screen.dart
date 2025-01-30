@@ -88,6 +88,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: 24,
             ),
             ListTile(
+              tileColor: Color(
+                _isPersonalInfoExpanded ? 0xFFEEEEEE : 0xFFFFFFFF,
+              ),
               leading: const Icon(
                 Icons.person_outline,
               ),
@@ -101,39 +104,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   () => _isPersonalInfoExpanded = !_isPersonalInfoExpanded),
             ),
             AnimatedContainer(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+              ),
               duration: const Duration(
                 milliseconds: 300,
               ),
               child: _isPersonalInfoExpanded
-                  ? const Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                            'Maksudur Rahman',
+                  ? Padding(
+                      padding: const EdgeInsets.only(
+                        left: 16.0,
+                      ),
+                      child: Column(
+                        children: [
+                          _ProfileDetails(
+                            title: 'Name',
+                            subtitle: 'Muhammed Shamil',
                           ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            'maksud.design7@gmail.com',
+                          _ProfileDetails(
+                            title: 'Gender',
+                            subtitle: 'Male',
                           ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            '+880 1924699597',
+                          _ProfileDetails(
+                            title: 'Age',
+                            subtitle: '21',
                           ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            '119 North Jatrabari, Dhaka 1204',
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     )
                   : const SizedBox(
                       width: double.infinity,
                     ),
             ),
             ListTile(
+              tileColor: Color(
+                _isContactInfoExpanded ? 0xFFEEEEEE : 0xFFFFFFFF,
+              ),
               leading: const Icon(
                 Icons.phone,
               ),
@@ -147,44 +153,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   () => _isContactInfoExpanded = !_isContactInfoExpanded),
             ),
             AnimatedContainer(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+              ),
               duration: const Duration(
                 milliseconds: 300,
               ),
               child: _isContactInfoExpanded
-                  ? const Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                            'Maksudur Rahman',
+                  ? Padding(
+                      padding: const EdgeInsets.only(
+                        left: 16.0,
+                      ),
+                      child: Column(
+                        children: [
+                          _ProfileDetails(
+                            title: 'Email',
+                            subtitle: 'muhammedshamil@joblocalee.com',
                           ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            'maksud.design7@gmail.com',
+                          _ProfileDetails(
+                            title: 'Phone Number',
+                            subtitle: '+91 98765 43210',
                           ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            '+880 1924699597',
+                          _ProfileDetails(
+                            title: 'Address',
+                            subtitle: '',
                           ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            '119 North Jatrabari, Dhaka 1204',
+                          _ProfileDetails(
+                            title: 'Locality',
+                            subtitle: 'Payyanur',
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     )
                   : const SizedBox(
                       width: double.infinity,
                     ),
             ),
             ListTile(
+              tileColor: Color(
+                _isAcademicInfoExpanded ? 0xFFEEEEEE : 0xFFFFFFFF,
+              ),
               leading: const Icon(
                 Icons.library_books_outlined,
               ),
               title: const Text(
-                'Academic Details',
+                'Skills & Education',
               ),
               trailing: Icon(_isAcademicInfoExpanded
                   ? Icons.keyboard_arrow_up
@@ -193,33 +206,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   () => _isAcademicInfoExpanded = !_isAcademicInfoExpanded),
             ),
             AnimatedContainer(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+              ),
               duration: const Duration(
                 milliseconds: 300,
               ),
               child: _isAcademicInfoExpanded
-                  ? const Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                            'Maksudur Rahman',
+                  ? Padding(
+                      padding: const EdgeInsets.only(
+                        left: 16.0,
+                      ),
+                      child: Column(
+                        children: [
+                          _ProfileDetails(
+                            title: 'Education',
+                            subtitle: '',
                           ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            'maksud.design7@gmail.com',
+                          _ProfileDetails(
+                            title: 'Skills',
+                            subtitle: '',
                           ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            '+880 1924699597',
+                          _ProfileDetails(
+                            title: 'Preferences',
+                            subtitle: '',
                           ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            '119 North Jatrabari, Dhaka 1204',
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     )
                   : const SizedBox(
                       width: double.infinity,
@@ -230,15 +243,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+}
 
-  Widget _buildProfileOption({
-    required IconData icon,
-    required String title,
-  }) {
+class _ProfileDetails extends StatelessWidget {
+  final String title;
+  final String subtitle;
+
+  const _ProfileDetails({
+    super.key,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon),
-      title: Text(title),
-      trailing: const Icon(Icons.arrow_forward_ios),
+      title: Text(
+        title,
+        style: AppTypography.bodyMedium.copyWith(
+          color: Colors.grey,
+        ),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: AppTypography.bodyMedium.copyWith(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
     );
   }
 }
