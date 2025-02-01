@@ -286,8 +286,10 @@ class MenuScreen extends StatelessWidget {
                 vertical: context.screenPadding,
               ),
               child: PrimaryButton(
-                text: 'Apply',
-                onTap: (){},
+                text: 'Logout',
+                onTap: (){
+                  context.router.push(LoginRoute());
+                },
               ),
             ),
           ),

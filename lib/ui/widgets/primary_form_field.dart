@@ -8,6 +8,7 @@ class PrimaryFormField extends StatefulWidget {
   final Widget? prefix;
   final bool isPassWord;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const PrimaryFormField({
     super.key,
@@ -15,7 +16,7 @@ class PrimaryFormField extends StatefulWidget {
     required this.lText,
     this.prefix,
     this.isPassWord = false,
-    this.controller,
+    this.controller, this.validator,
 
   });
 
@@ -39,11 +40,12 @@ class _PrimaryFormFieldState extends State<PrimaryFormField> {
         TextFormField(
           controller: widget.controller,
           obscureText: _isSecure,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: AppTypography.defaultFamily,
           ),
+          validator: widget.validator,
           decoration: InputDecoration(
-            border: OutlineInputBorder(
+            border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
             labelStyle: AppTypography.labelMedium,
