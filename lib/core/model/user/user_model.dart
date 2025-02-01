@@ -11,9 +11,7 @@ class UserModel with _$UserModel {
     @HiveField(0)@JsonKey(name: 'name') required String name,
     @HiveField(1)@JsonKey(name: 'email') required String email,
     @HiveField(2)@JsonKey(name: 'phone') required String phone,
-    @HiveField(3)@JsonKey(name: 'address') required String address,
-    @HiveField(4)@JsonKey(name: 'locality') required String locality,
-    @HiveField(5)@JsonKey(name: 'gender') required String gender,
+    @HiveField(3)@JsonKey(name: '_id') required String id,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);

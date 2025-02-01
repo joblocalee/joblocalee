@@ -13,10 +13,10 @@ class SplashScreen extends StatelessWidget {
     _next(context);
     return Scaffold(
       body: Center(
-          child: Image.asset(
-            AppImages.splashImage,
-            height: 200,
-          )
+        child: Image.asset(
+          AppImages.splashImage,
+          height: 500,
+        ),
       ),
     );
   }

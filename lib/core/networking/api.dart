@@ -19,7 +19,7 @@ enum _DialogEnum { notFound, server, socket, timeout, other, custom, unauthorize
 class Api {
   final SettingsRepository _settingsRepository;
 
-  static const String _path = '';
+  static const String _path = '/api/frontend';
 
   final SnackBarAlert _snackBarAlert;
   final Dio dio;
@@ -49,7 +49,7 @@ class Api {
     return head;
   }
 
-  final String _baseUrl = '';
+  final String _baseUrl = '5ktvvggx-5000.inc1.devtunnels.ms';
 
   void setToken(String token) => _token;
 

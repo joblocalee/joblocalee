@@ -18,10 +18,10 @@ class AuthServices {
     required String passWord,
   }) async {
     final response = await _api.httpPost(
-      endPath: '',
+      endPath: 'users/login',
       body: {
         'email': email,
-        'passWord': passWord,
+        'password': passWord,
       },
     );
 
@@ -37,31 +37,23 @@ class AuthServices {
     );
   }
 
-  Future<UserModel> register(
-      {required String email,
-      required String name,
-      required String passWord,
-      required String phoneNumber}) async {
-    final response = await _api.httpPost(
+  Future<void> register({
+    required String email,
+    required String name,
+    required String passWord,
+    required String phoneNumber,
+  }) async {
+    await _api.httpPost(
       endPath: 'users/register',
       body: {
         'email_id': email,
         'userName': name,
-        'passWord': passWord,
+        'password': passWord,
         'contactNumber': phoneNumber,
       },
     );
 
-    return Isolate.run(
-      () {
-        final Map<String, dynamic> responseData =
-            ResponseChecker.getSuccessData(
-          response: response,
-        );
-
-        return UserModel.fromJson(responseData);
-      },
-    );
+    return ;
   }
 
   Future<UserModel> editProfile({

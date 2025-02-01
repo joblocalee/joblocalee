@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
+import '../../../core/injection/injection.dart';
+import '../../../core/provider/auth_provider.dart';
 import '../../../utils/constants/app_dimensions.dart';
 import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/primary_form_field.dart';
@@ -12,8 +15,14 @@ import '../../../utils/constants/app_images.dart';
 import '../../../utils/constants/app_typography.dart';
 
 @RoutePage()
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatelessWidget implements AutoRouteWrapper {
   const MenuScreen({super.key});
+
+  @override
+  Widget wrappedRoute(BuildContext context) => ChangeNotifierProvider.value(
+        value: locator<AuthProvider>(),
+        child: this,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -270,7 +279,7 @@ class MenuScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Gap( 100),
+                    Gap(100),
                   ],
                 ),
               ),
@@ -285,10 +294,14 @@ class MenuScreen extends StatelessWidget {
                 horizontal: context.screenPadding,
                 vertical: context.screenPadding,
               ),
-              child: PrimaryButton(
-                text: 'Logout',
-                onTap: (){
-                  context.router.push(LoginRoute());
+              child: Selector<AuthProvider, bool>(
+                selector: (context, provider) => provider.isBusy,
+                builder: (context, isLoading, _) {
+                  return PrimaryButton(
+                    isLoading: isLoading,
+                    text: 'Logout',
+                    onTap: () => _logout(context),
+                  );
                 },
               ),
             ),
@@ -297,6 +310,8 @@ class MenuScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _logout(BuildContext context) => context.read<AuthProvider>().logout();
 }
 
 class _ProfileTile extends StatelessWidget {

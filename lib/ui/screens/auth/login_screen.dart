@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:jus/core/injection/injection.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/helper/custom_validators.dart';
@@ -13,11 +14,17 @@ import '../../../utils/extensions/build_context_extension.dart';
 import '../../../utils/constants/app_typography.dart';
 
 @RoutePage()
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget implements AutoRouteWrapper {
   const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) => ChangeNotifierProvider.value(
+    value: locator<AuthProvider>(),
+    child: this,
+  );
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -102,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           const Gap(50),
                           Consumer<AuthProvider>(
-                            builder: (context, provider, _) {
+                            builder: (context, provider, child) {
                               return PrimaryButton(
                                 text: 'Login',
                                 onTap: () => _login(),
