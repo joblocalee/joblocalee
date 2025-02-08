@@ -32,6 +32,8 @@ class AuthServices {
           response: response,
         );
 
+        // final Map<String, dynamic> responseData = _login;
+
         return UserServiceDto.fromJson(responseData);
       },
     );
@@ -92,3 +94,18 @@ class AuthServices {
     );
   }
 }
+
+final _login = {
+  "success": true,
+  "message": "Login successful",
+  "data": {
+    "user": {
+      "_id": "679df1e3777df3b42966ab08",
+      "name": "Lazim Nihal",
+      "email": "lazimnihal@gmail.com",
+      "phone": 9876543210
+    },
+    "accessToken":
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzlkZjFlMzc3N2RmM2I0Mjk2NmFiMDgiLCJpYXQiOjE3Mzg5NTI4MzMsImV4cCI6MTczOTU1NzYzM30.fLUUEkkb07r1rzrOsFanu6YjkEMHxZLr8U2h2bobLtk"
+  }
+};

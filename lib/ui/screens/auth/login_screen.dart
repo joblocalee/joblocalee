@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:jus/core/injection/injection.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/injection/injection.dart';
 import '../../../utils/helper/custom_validators.dart';
 import '../../../core/provider/auth_provider.dart';
 import '../../../core/routes/app_router.gr.dart';
@@ -53,24 +53,24 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Gap(200),
+                    const Gap(200.0),
                     Text(
                       'Login To',
                       style: AppTypography.headlineLarge.copyWith(
                         color: Colors.grey.shade900,
-                        fontSize: 45,
+                        fontSize: 45.0,
                       ),
                     ),
                     Text(
                       'Job Localee',
                       style: AppTypography.headlineLarge.copyWith(
-                        color: Colors.white,
-                        fontSize: 50,
+                        color: Colors.black,
+                        fontSize: 50.0,
                       ),
                     ),
-                    const Gap(30),
+                    const Gap(30.0),
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
@@ -103,13 +103,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             lText: 'Password',
                             prefix: Icon(Icons.lock),
                             isPassWord: true,
+                            maxLines: 1,
                             controller: _passWordCtrl,
                             validator: (p0) =>
                                 CustomValidators.validatePassword(p0),
                           ),
                           const Gap(50),
                           Consumer<AuthProvider>(
-                            builder: (context, provider, child) {
+                            builder: (context, provider, _) {
                               return PrimaryButton(
                                 text: 'Login',
                                 onTap: () => _login(),

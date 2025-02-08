@@ -112,6 +112,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             lText: 'Password',
                             prefix: Icon(Icons.lock),
                             isPassWord: true,
+                            maxLines: 1,
                             validator: (p0) =>
                                 CustomValidators.validatePassword(p0),
                           ),
@@ -121,12 +122,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             lText: 'Confirm Password',
                             prefix: Icon(Icons.lock),
                             isPassWord: true,
+                            maxLines: 1,
                             validator: (p0) =>
                                 CustomValidators.validatePassword(p0),
                           ),
                           const Gap(50),
                           Consumer<AuthProvider>(
-                              builder: (context, provider, child) {
+                              builder: (context, provider, _) {
                             return PrimaryButton(
                               text: 'Sign Up',
                               onTap: () => _register(),

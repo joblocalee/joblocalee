@@ -1,14 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:jus/ui/widgets/buttons/primary_button.dart';
 
-import '../../../utils/extensions/build_context_extension.dart';
-import '../../../utils/constants/app_images.dart';
+import '../../widgets/primary_form_field.dart';
 import '../../../utils/constants/app_dimensions.dart';
+import '../../../utils/extensions/build_context_extension.dart';
 import '../../../utils/constants/app_typography.dart';
-import '../../widgets/buttons/ink_well_material.dart';
-import '../../widgets/buttons/operation_button.dart';
-import '../../widgets/profile_text_field.dart';
 
 @RoutePage()
 class EditProfileScreen extends StatefulWidget {
@@ -19,122 +17,197 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  List<String> _genderList = ["Select Gender","Male", "Female"];
-  String _selectedGender = "Select Gender";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.screenPadding * 0.75,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Gap(10),
-              Align(
-                alignment: Alignment.center,
-                child: ClipOval(
-                  child: Image.asset(
-                    AppImages.profileImage2,
-                    height: 80,
-                    width: 80,
-                    fit: BoxFit.cover,
+      backgroundColor: Colors.blue,
+      appBar: AppBar(
+        title: Text(
+          'Edit Profile',
+          style: AppTypography.titleLarge,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {
+            context.router.maybePop();
+          },
+        ),
+      ),
+      body: Stack(
+        children: [
+          SizedBox.expand(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.screenPadding,
+                    vertical: context.screenPadding,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Personal Details',
+                                style: AppTypography.headlineLarge.copyWith(
+                                  fontSize: 20.0,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              Gap(AppDimensions.gapLarge),
+                              PrimaryFormField(
+                                lText: 'Name',
+                              ),
+                              Gap(AppDimensions.gapLarge),
+                              PrimaryFormField(
+                                lText: 'Gender',
+                              ),
+                              Gap(AppDimensions.gapLarge),
+                              PrimaryFormField(
+                                lText: 'Age',
+                              ),
+                              Gap(AppDimensions.gapMedium),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Gap(AppDimensions.gapXXL),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Contact Details',
+                                style: AppTypography.headlineLarge.copyWith(
+                                  fontSize: 20.0,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              Gap(AppDimensions.gapLarge),
+                              PrimaryFormField(
+                                lText: 'Email',
+                              ),
+                              Gap(AppDimensions.gapLarge),
+                              PrimaryFormField(
+                                lText: 'Contact',
+                              ),
+                              Gap(AppDimensions.gapLarge),
+                              PrimaryFormField(
+                                lText: 'Locality',
+                              ),
+                              Gap(AppDimensions.gapLarge),
+                              PrimaryFormField(
+                                lText: 'Address',
+                                maxLines: 5,
+                              ),
+                              Gap(AppDimensions.gapMedium),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Gap(AppDimensions.gapXXL),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Skills & Education',
+                                style: AppTypography.headlineLarge.copyWith(
+                                  fontSize: 20.0,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              Gap(AppDimensions.gapLarge),
+                              PrimaryFormField(
+                                lText: 'Education',
+                              ),
+                              Gap(AppDimensions.gapLarge),
+                              PrimaryFormField(
+                                lText: 'Skills',
+                              ),
+                              Gap(AppDimensions.gapLarge),
+                              PrimaryFormField(
+                                lText: 'Preferences',
+                              ),
+                              Gap(AppDimensions.gapLarge),
+                              PrimaryFormField(
+                                lText: 'Experience',
+                              ),
+                              Gap(AppDimensions.gapMedium),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Gap(MediaQuery.paddingOf(context).bottom + 75),
+                    ],
                   ),
                 ),
               ),
-              Gap(AppDimensions.gapXXL),
-              ProfileTextField(
-                lbel: 'Name',
-                initVal: "Muhammed Shamil",
-                passHide: false,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: context.screenPadding,
+                vertical: context.screenPadding,
               ),
-              Gap(AppDimensions.gapXXL),
-              ProfileTextField(
-                lbel: 'Email',
-                initVal: "muhammedshamil@joblocalee.com",
-                passHide: false,
-              ),
-              Gap(AppDimensions.gapXXL),
-              ProfileTextField(
-                lbel: 'Phone',
-                initVal: "+91 9876543210",
-                passHide: false,
-              ),
-              Gap(AppDimensions.gapXXL),
-              ProfileTextField(
-                lbel: 'DOB',
-                initVal: "01/01/2001",
-                passHide: false,
-              ),
-              Gap(AppDimensions.gapXXL),
-
-              Gap(AppDimensions.gapRegular),
-              Gap(AppDimensions.gapXXL),
-              InkWellMaterial(
+              child: PrimaryButton(
+                text: 'Update Profile',
                 onTap: () {},
-                child: OperationButton(
-                  btnTxt: "Update profile",
-                ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-class _DescriptonField extends StatelessWidget {
-  final IconData icon;
-  final String text1;
-  final String? text2;
-
-  const _DescriptonField({
-    super.key,
-    required this.icon,
-    required this.text1,
-    this.text2
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(
-          icon,
-          size: 22,
-          color: Colors.white,
-        ),
-        SizedBox(
-          width: 2,
-        ),
-        Text(
-          text1,
-          style: AppTypography.bodyLarge.copyWith(
-            fontSize: 16,
-            color: Colors.white,
-          ),
-        ),
-        if (text2 != null) ...<Widget>[
-          SizedBox(
-            width: 8,
-          ),
-          Text(
-            text2 ?? '',
-            style: AppTypography.bodyLarge.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
             ),
           ),
         ],
-      ],
+      ),
     );
   }
 }

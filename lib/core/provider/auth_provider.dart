@@ -20,13 +20,13 @@ class AuthProvider extends BaseProvider {
   final AppRouter _appRouter;
 
   AuthProvider(
-      this._authServices,
-      this._errorManager,
-      this._snackBarAlert,
-      this._userRepository,
-      this._appRouter,
-      this._settingsRepository,
-      );
+    this._authServices,
+    this._errorManager,
+    this._snackBarAlert,
+    this._userRepository,
+    this._appRouter,
+    this._settingsRepository,
+  );
 
   UserModel? _user;
 
@@ -39,7 +39,10 @@ class AuthProvider extends BaseProvider {
     return _user;
   }
 
-  Future<bool> login({required String email, required String passWord}) async {
+  Future<bool> login({
+    required String email,
+    required String passWord,
+  }) async {
     try {
       setViewBusy();
       final response = await _authServices.login(

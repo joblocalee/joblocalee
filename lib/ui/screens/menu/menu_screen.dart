@@ -189,6 +189,7 @@ class MenuScreen extends StatelessWidget implements AutoRouteWrapper {
                                                   Icons.lock_outline_rounded,
                                                 ),
                                                 isPassWord: true,
+                                                maxLines: 1,
                                               ),
                                               Gap(AppDimensions.gapMedium),
                                               PrimaryFormField(
@@ -197,6 +198,7 @@ class MenuScreen extends StatelessWidget implements AutoRouteWrapper {
                                                   Icons.lock_outline_rounded,
                                                 ),
                                                 isPassWord: true,
+                                                maxLines: 1,
                                               ),
                                               Gap(AppDimensions.gapMedium),
                                               PrimaryFormField(
@@ -205,6 +207,7 @@ class MenuScreen extends StatelessWidget implements AutoRouteWrapper {
                                                   Icons.lock_outline_rounded,
                                                 ),
                                                 isPassWord: true,
+                                                maxLines: 1,
                                               ),
                                             ],
                                           ),

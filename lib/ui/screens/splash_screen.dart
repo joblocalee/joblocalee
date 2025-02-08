@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:jus/core/routes/app_router.gr.dart';
 
+import '../../core/routes/app_router.gr.dart';
 import '../../utils/constants/app_images.dart';
 
 @RoutePage()

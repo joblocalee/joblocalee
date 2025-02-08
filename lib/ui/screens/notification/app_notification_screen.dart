@@ -11,24 +11,22 @@ class AppNotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Notifications',
+          style: AppTypography.titleLarge,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {
+            context.router.maybePop();
+          },
+        ),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                BackButton(
-                  color: Colors.black,
-                  onPressed: () => context.router.maybePop(),
-                ),
-                Text(
-                  'Notifications',
-                  style: AppTypography.headlineLarge.copyWith(
-                    fontSize: 35,
-                  ),
-                )
-              ],
-            ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(

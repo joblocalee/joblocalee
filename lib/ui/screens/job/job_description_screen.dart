@@ -14,7 +14,14 @@ class JobDescriptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {
+            context.router.maybePop();
+          },
+        ),
+      ),
       body: Stack(
         children: [
           SizedBox.expand(

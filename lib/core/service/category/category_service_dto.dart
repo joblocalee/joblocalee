@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../model/category/category_model.dart';
+
 part 'category_service_dto.g.dart';
 part 'category_service_dto.freezed.dart';
 

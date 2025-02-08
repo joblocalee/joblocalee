@@ -53,6 +53,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   decoration: BoxDecoration(
                     color: Colors.grey.withOpacity(0.25),
                     borderRadius: BorderRadius.circular(16.0),
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
                   ),
                   child: TextFormField(
                     decoration: InputDecoration(

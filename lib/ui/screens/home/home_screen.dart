@@ -1,25 +1,35 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
+import '../../../core/provider/home_provider.dart';
+import '../../../core/model/vacancy/vacancy_model.dart';
+import '../../../core/model/category/category_model.dart';
+import '../../../core/injection/injection.dart';
 import '../../../core/routes/app_router.gr.dart';
 import '../../../utils/constants/app_images.dart';
-import '../../../utils/constants/app_dimensions.dart';
 import '../../../utils/constants/app_typography.dart';
 import '../../../utils/extensions/build_context_extension.dart';
 import '../../widgets/buttons/ink_well_material.dart';
 import '../../widgets/buttons/primary_button.dart';
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
   const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) => ChangeNotifierProvider(
+    create: (context) => locator<HomeProvider>(),
+    child: this,
+  );
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final ValueNotifier<int?> _selectedCategory;
+  late final ValueNotifier<CategoryModel?> _selectedCategory;
 
   @override
   void initState() {
@@ -35,52 +45,60 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: null,
+        title: Padding(
+          padding: EdgeInsets.only(
+            left: 10.0,
+            right: 10.0,
+          ),
+          child: Text(
+            'New Openings',
+            style: AppTypography.titleLarge,
+          ),
+        ),
+      ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: context.screenPadding,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Gap(AppDimensions.gapLarge),
-                Text(
-                  'New Openings',
-                  style: AppTypography.headlineMedium.copyWith(
-                    fontSize: 35,
-                  ),
-                ),
-                Gap(AppDimensions.gapLarge),
-                SizedBox(
-                  height: 40,
-                  child: ValueListenableBuilder(
-                    valueListenable: _selectedCategory,
-                    builder: (context, categoryId, child) => ListView.builder(
-                      itemCount: 7,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => _Category(
-                        onTap: () => _selectCategory(index),
-                        isSelected: index == categoryId,
+        child: Consumer<HomeProvider>(
+          builder: (context, provider, _) => SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: context.screenPadding,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 35,
+                    child: ValueListenableBuilder(
+                      valueListenable: _selectedCategory,
+                      builder: (context, categoryId, child) => ListView.builder(
+                        itemCount: provider.categories.length,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => _Category(
+                          onTap: () =>
+                              _selectCategory(provider.categories[index]),
+                          isSelected: index == categoryId,
+                          category: provider.categories[index],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: 10,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) => _JobCard(
-                    onTap: () {
-                      context.router.push(JobDescriptionRoute());
-                    },
+                  ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    itemCount: provider.vacancies.length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) => _JobCard(
+                      onTap: () => context.router.push(JobDescriptionRoute()),
+                      vacancy: provider.vacancies[index],
+                    ),
                   ),
-                ),
-                Gap(MediaQuery.paddingOf(context).bottom + 100),
-              ],
+                  Gap(MediaQuery.paddingOf(context).bottom + 100),
+                ],
+              ),
             ),
           ),
         ),
@@ -88,17 +106,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _selectCategory(int index) => _selectedCategory.value = _selectedCategory.value == index ? null : index;
+  void _selectCategory(CategoryModel category) => _selectedCategory.value =
+      _selectedCategory.value == category ? null : category;
 }
 
 class _Category extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
+  final CategoryModel category;
 
   const _Category({
     super.key,
     required this.onTap,
     this.isSelected = false,
+    required this.category,
   });
 
   @override
@@ -110,8 +131,8 @@ class _Category extends StatelessWidget {
         onTap: onTap,
         child: Container(
           alignment: Alignment(0, 0),
-          height: 50,
-          width: 100,
+          height: 35,
+          width: 90,
           decoration: BoxDecoration(
             color: isSelected ? Colors.black : Colors.white,
             border: Border.all(
@@ -133,10 +154,12 @@ class _Category extends StatelessWidget {
 
 class _JobCard extends StatelessWidget {
   final VoidCallback onTap;
+  final VacancyModel vacancy;
 
   const _JobCard({
     super.key,
     required this.onTap,
+    required this.vacancy,
   });
 
   @override

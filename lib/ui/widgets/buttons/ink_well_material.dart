@@ -1,7 +1,4 @@
-
 import 'package:flutter/material.dart';
-
-import '../../../utils/constants/theme_colors.dart';
 
 class InkWellMaterial extends StatelessWidget {
   final VoidCallback onTap;
@@ -19,12 +16,16 @@ class InkWellMaterial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Material(
-      borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 12)),
-      color: color ?? Colors.white70,
-      child: InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 12)),
-          onTap: onTap,
-          child: child,
-          ),
-      );
+    borderRadius: BorderRadius.all(
+      Radius.circular(borderRadius ?? 12),
+    ),
+    color: color ?? Colors.white70,
+    child: InkWell(
+      borderRadius: BorderRadius.all(
+        Radius.circular(borderRadius ?? 12),
+      ),
+      onTap: onTap,
+      child: child,
+    ),
+  );
 }
