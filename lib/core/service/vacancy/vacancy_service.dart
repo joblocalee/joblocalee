@@ -13,16 +13,26 @@ class VacancyService{
   VacancyService(this._api);
 
   Future<VacancyServiceDto> getVacancy({
-    required String title,
-    required String thumbnail,
-    required String description,
+    required String? positionName,
+    required String? salary,
+    required String? timing,
+    required String? search,
+    required String? jobDescription,
+    required String? qualification,
+    required String? experience,
+    required String? contact,
   }) async {
     final response = await _api.httpGet(
-      endPath: 'https://dummyjson.com/vacancy',
+      endPath: 'vacancies/all',
       query: {
-        'title': title,
-        'thumbnail': thumbnail,
-        'description': description,
+        if(search != null) 'search': search,
+        if(positionName != null) 'positionName': positionName,
+        if(salary != null) 'salary': salary,
+        if(jobDescription != null) 'salary': jobDescription,
+        if(qualification != null) 'salary': qualification,
+        if(experience != null) 'salary': experience,
+        if(contact != null) 'salary': contact,
+        if(timing != null) 'timing': timing,
       }
     );
 

@@ -27,6 +27,7 @@ class MenuScreen extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue.shade50,
       body: Stack(
         children: [
           SizedBox.expand(
@@ -301,6 +302,8 @@ class MenuScreen extends StatelessWidget implements AutoRouteWrapper {
                 selector: (context, provider) => provider.isBusy,
                 builder: (context, isLoading, _) {
                   return PrimaryButton(
+                    btncolor: Colors.red,
+                    txtcolor: Colors.white,
                     isLoading: isLoading,
                     text: 'Logout',
                     onTap: () => _logout(context),

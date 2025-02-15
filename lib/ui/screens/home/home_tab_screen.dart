@@ -16,12 +16,6 @@ enum _BottomTabEnum {
       width: 28,
       height: 28,
       route: HomeRoute()),
-  cart(
-      name: 'Search',
-      icon: Icons.search_rounded,
-      width: 28,
-      height: 28,
-      route: SearchRoute()),
   profile(
       name: 'Menu',
       icon: Icons.menu,
@@ -58,8 +52,8 @@ class HomeTabScreen extends StatelessWidget {
               ),
               Positioned(
                 bottom: context.safeBottomStrict + 20,
-                left: context.screenPadding,
-                right: context.screenPadding,
+                left: 100,
+                right: 100,
                 child: const _GBottomNav(),
               ),
             ],
@@ -198,7 +192,7 @@ class _GBottomNav extends StatelessWidget {
         ),
         child: GNav(
           // key: Key(activeRoute.toString()),
-          gap: 8,
+          gap: 4,
           selectedIndex: _BottomTabEnum.values.indexWhere(
             (element) => element.route.routeName == activeRoute,
           ),

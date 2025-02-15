@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+import '../../../core/model/vacancy/vacancy_model.dart';
 import '../../../utils/constants/app_images.dart';
 import '../../widgets/buttons/primary_button.dart';
 import '../../../utils/constants/app_typography.dart';
@@ -9,11 +10,17 @@ import '../../../utils/extensions/build_context_extension.dart';
 
 @RoutePage()
 class JobDescriptionScreen extends StatelessWidget {
-  const JobDescriptionScreen({super.key});
+  final VacancyModel vacancy;
+
+  const JobDescriptionScreen({
+    super.key,
+    required this.vacancy,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.close),
@@ -35,73 +42,74 @@ class JobDescriptionScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        child: Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.asset(
-                                fit: BoxFit.cover,
-                                alignment: Alignment.center,
-                                AppImages.shopImage,
-                                height: MediaQuery.sizeOf(context).width * 0.5,
-                                width: MediaQuery.sizeOf(context).width,
+                      Gap(MediaQuery.paddingOf(context).bottom + 20),
+                      Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset(
+                              fit: BoxFit.cover,
+                              alignment: Alignment.center,
+                              AppImages.shopImage,
+                              height: MediaQuery.sizeOf(context).width * 0.5,
+                              width: MediaQuery.sizeOf(context).width,
+                            ),
+                          ),
+                          Positioned(
+                            top: 150,
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                left: 16,
+                                bottom: 16,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.local_convenience_store_rounded,
+                                        size: 28,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        vacancy.shops.shopName,
+                                        style:
+                                            AppTypography.titleLarge.copyWith(
+                                          color: Colors.white,
+                                          fontSize: 28,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.location_on_outlined,
+                                        size: 14,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        vacancy.shops.address,
+                                        style:
+                                            AppTypography.bodyLarge.copyWith(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                            Positioned(
-                              top: 150,
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                  left: 16,
-                                  bottom: 16,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.local_convenience_store_rounded,
-                                          size: 28,
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          'City Mart',
-                                          style: AppTypography.titleLarge.copyWith(
-                                            color: Colors.white,
-                                            fontSize: 28,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.location_on_outlined,
-                                          size: 14,
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          'Mainroad, Keloth, Payyanur',
-                                          style: AppTypography.bodyLarge.copyWith(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                       Container(
                         child: Padding(
@@ -117,8 +125,9 @@ class JobDescriptionScreen extends StatelessWidget {
                                 width: 8,
                               ),
                               Text(
-                                'Sales Executive',
-                                style: AppTypography.titleLarge.copyWith(fontSize: 26),
+                                vacancy.title,
+                                style: AppTypography.titleLarge
+                                    .copyWith(fontSize: 26),
                               ),
                             ],
                           ),
@@ -133,7 +142,7 @@ class JobDescriptionScreen extends StatelessWidget {
                           children: [
                             _DescriptonField(
                               icon: Icons.currency_rupee_rounded,
-                              text1: '10,000 - 15,000',
+                              text1: vacancy.salary,
                             ),
                             SizedBox(
                               height: 8,
@@ -141,14 +150,10 @@ class JobDescriptionScreen extends StatelessWidget {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Container(
-                                padding: EdgeInsets.all(3.0),
+                                padding: EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 2,
-                                    color: Colors.blueGrey.shade100,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Colors.blueGrey.shade100,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color: Colors.white,
                                 ),
                                 child: Text(
                                   '30 Vacancies',
@@ -168,7 +173,7 @@ class JobDescriptionScreen extends StatelessWidget {
                         padding: EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: Colors.blueGrey.shade100,
+                          color: Colors.white,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,7 +188,7 @@ class JobDescriptionScreen extends StatelessWidget {
                             _DescriptonField(
                               icon: Icons.star_rounded,
                               text1: 'Experience: ',
-                              text2: 'Less than 1 Year',
+                              text2: vacancy.experience,
                             ),
                             SizedBox(
                               height: 8,
@@ -191,7 +196,7 @@ class JobDescriptionScreen extends StatelessWidget {
                             _DescriptonField(
                               icon: Icons.library_books_rounded,
                               text1: 'Qualification: ',
-                              text2: 'Not required',
+                              text2: vacancy.qualification,
                             ),
                             SizedBox(
                               height: 8,
@@ -214,7 +219,7 @@ class JobDescriptionScreen extends StatelessWidget {
                             _DescriptonField(
                               icon: Icons.sunny,
                               text1: 'Shift Time: ',
-                              text2: 'Fulltime',
+                              text2: vacancy.timing,
                             ),
                             SizedBox(
                               height: 16,
@@ -248,7 +253,7 @@ class JobDescriptionScreen extends StatelessWidget {
                         padding: EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: Colors.blueGrey.shade100,
+                          color: Colors.white,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -261,7 +266,7 @@ class JobDescriptionScreen extends StatelessWidget {
                               height: 8,
                             ),
                             Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                              vacancy.jobDescription,
                               style: AppTypography.bodyLarge.copyWith(
                                 fontSize: 16,
                               ),
@@ -286,8 +291,10 @@ class JobDescriptionScreen extends StatelessWidget {
                 vertical: context.screenPadding,
               ),
               child: PrimaryButton(
+                btncolor: Colors.black,
+                txtcolor: Colors.white,
                 text: 'Apply',
-                onTap: (){},
+                onTap: () {},
               ),
             ),
           ),

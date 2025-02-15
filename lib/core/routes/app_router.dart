@@ -18,10 +18,6 @@ class AppRouter extends RootStackRouter {
       path: '/registration',
     ),
     AutoRoute(
-      page:SearchRoute.page,
-      path: '/search',
-    ),
-    AutoRoute(
       page:ProfileRoute.page,
       path: '/profile',
     ),
@@ -49,10 +45,6 @@ class AppRouter extends RootStackRouter {
           page: HomeRoute.page,
           path: 'home-screen',
           initial: true,
-        ),
-        AutoRoute(
-          page: SearchRoute.page,
-          path: 'search-screen',
         ),
         AutoRoute(
           page: MenuRoute.page,

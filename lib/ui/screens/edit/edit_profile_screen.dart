@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:jus/ui/widgets/buttons/primary_button.dart';
 
+import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/primary_form_field.dart';
 import '../../../utils/constants/app_dimensions.dart';
 import '../../../utils/extensions/build_context_extension.dart';
@@ -20,7 +20,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.blue.shade50,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           'Edit Profile',
@@ -75,14 +76,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               Gap(AppDimensions.gapLarge),
                               PrimaryFormField(
                                 lText: 'Name',
+                                maxLines: 1,
                               ),
                               Gap(AppDimensions.gapLarge),
                               PrimaryFormField(
                                 lText: 'Gender',
+                                maxLines: 1,
                               ),
                               Gap(AppDimensions.gapLarge),
                               PrimaryFormField(
                                 lText: 'Age',
+                                maxLines: 1,
                               ),
                               Gap(AppDimensions.gapMedium),
                             ],
@@ -118,14 +122,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               Gap(AppDimensions.gapLarge),
                               PrimaryFormField(
                                 lText: 'Email',
+                                maxLines: 1,
                               ),
                               Gap(AppDimensions.gapLarge),
                               PrimaryFormField(
                                 lText: 'Contact',
+                                maxLines: 1,
                               ),
                               Gap(AppDimensions.gapLarge),
                               PrimaryFormField(
                                 lText: 'Locality',
+                                maxLines: 1,
                               ),
                               Gap(AppDimensions.gapLarge),
                               PrimaryFormField(
@@ -166,18 +173,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               Gap(AppDimensions.gapLarge),
                               PrimaryFormField(
                                 lText: 'Education',
+                                maxLines: 1,
                               ),
                               Gap(AppDimensions.gapLarge),
                               PrimaryFormField(
                                 lText: 'Skills',
+                                maxLines: 1,
                               ),
                               Gap(AppDimensions.gapLarge),
                               PrimaryFormField(
                                 lText: 'Preferences',
+                                maxLines: 1,
                               ),
                               Gap(AppDimensions.gapLarge),
                               PrimaryFormField(
                                 lText: 'Experience',
+                                maxLines: 1,
                               ),
                               Gap(AppDimensions.gapMedium),
                             ],

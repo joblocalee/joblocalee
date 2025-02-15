@@ -6,7 +6,7 @@ import '../service/locality/locality_service.dart';
 import '../../utils/helper/error_manager.dart';
 import 'base/base_provider.dart';
 
-@lazySingleton
+@injectable
 class LocalityProvider extends BaseProvider {
   final LocalityService _localityService;
   final ErrorManager _errorManager;

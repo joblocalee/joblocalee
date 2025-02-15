@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class PrimaryButton extends StatelessWidget {
   final String text;
   final bool isLoading;
+  final Color? btncolor;
+  final Color? txtcolor;
   final VoidCallback onTap;
 
   const PrimaryButton({
@@ -11,6 +13,8 @@ class PrimaryButton extends StatelessWidget {
     required this.text,
     required this.onTap,
     this.isLoading = false,
+    this.btncolor,
+    this.txtcolor,
   });
 
   @override
@@ -21,7 +25,7 @@ class PrimaryButton extends StatelessWidget {
         alignment: Alignment.center,
         height: 50,
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: btncolor,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Center(
@@ -31,8 +35,8 @@ class PrimaryButton extends StatelessWidget {
                 )
               : Text(
                   text,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: txtcolor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -28,6 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
         title: Text(
           'Your Profile',
@@ -89,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ListTile(
               tileColor: Color(
-                _isPersonalInfoExpanded ? 0xFFEEEEEE : 0xFFFFFFFF,
+                _isPersonalInfoExpanded ? 0xFFFFFFFF : 0xFFE3F2FD,
               ),
               leading: const Icon(
                 Icons.person_outline,
@@ -105,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             AnimatedContainer(
               decoration: BoxDecoration(
-                color: Colors.grey.shade200,
+                color: Colors.white,
               ),
               duration: const Duration(
                 milliseconds: 300,
@@ -138,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ListTile(
               tileColor: Color(
-                _isContactInfoExpanded ? 0xFFEEEEEE : 0xFFFFFFFF,
+                _isContactInfoExpanded ? 0xFFFFFFFF : 0xFFE3F2FD,
               ),
               leading: const Icon(
                 Icons.phone,
@@ -154,7 +155,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             AnimatedContainer(
               decoration: BoxDecoration(
-                color: Colors.grey.shade200,
+                color: Colors.white,
               ),
               duration: const Duration(
                 milliseconds: 300,
@@ -191,7 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             ListTile(
               tileColor: Color(
-                _isAcademicInfoExpanded ? 0xFFEEEEEE : 0xFFFFFFFF,
+                _isAcademicInfoExpanded ? 0xFFFFFFFF : 0xFFE3F2FD,
               ),
               leading: const Icon(
                 Icons.library_books_outlined,
@@ -207,7 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             AnimatedContainer(
               decoration: BoxDecoration(
-                color: Colors.grey.shade200,
+                color: Colors.white,
               ),
               duration: const Duration(
                 milliseconds: 300,

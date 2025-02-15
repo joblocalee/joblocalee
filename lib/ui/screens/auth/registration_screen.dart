@@ -37,6 +37,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
         leading: BackButton(
           onPressed: () {
@@ -87,6 +88,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             controller: _nameController,
                             lText: 'Name',
                             prefix: Icon(Icons.person_outlined),
+                            maxLines: 1,
                             validator: (value) =>
                                 CustomValidators.validateRequired(value),
                           ),
@@ -95,6 +97,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             controller: _phoneController,
                             lText: 'Phone Number',
                             prefix: Icon(Icons.phone),
+                            maxLines: 1,
                             validator: (value) =>
                                 CustomValidators.validateRequired(value),
                           ),
@@ -103,6 +106,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             controller: _emailController,
                             lText: 'E-mail',
                             prefix: Icon(Icons.email),
+                            maxLines: 1,
                             validator: (value) =>
                                 CustomValidators.validateEmail(value),
                           ),

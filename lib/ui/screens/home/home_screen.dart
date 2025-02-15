@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/provider/home_provider.dart';
+import '../../../utils/constants/app_dimensions.dart';
+import '../../../core/provider/vacancy_provider.dart';
 import '../../../core/model/vacancy/vacancy_model.dart';
-import '../../../core/model/category/category_model.dart';
 import '../../../core/injection/injection.dart';
 import '../../../core/routes/app_router.gr.dart';
 import '../../../utils/constants/app_images.dart';
@@ -23,43 +23,31 @@ class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) => ChangeNotifierProvider(
-    create: (context) => locator<HomeProvider>(),
-    child: this,
-  );
+        create: (context) => locator<VacancyProvider>()..getVacancy(),
+        child: this,
+      );
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final ValueNotifier<CategoryModel?> _selectedCategory;
+  // late final ValueNotifier<CategoryModel?> _selectedCategory;
 
   @override
   void initState() {
     super.initState();
-    _selectedCategory = ValueNotifier(null);
+    // _selectedCategory = ValueNotifier(null);
   }
 
   @override
   void dispose() {
-    _selectedCategory.dispose();
+    // _selectedCategory.dispose();
     super.dispose();
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: null,
-        title: Padding(
-          padding: EdgeInsets.only(
-            left: 10.0,
-            right: 10.0,
-          ),
-          child: Text(
-            'New Openings',
-            style: AppTypography.titleLarge,
-          ),
-        ),
-      ),
+      backgroundColor: Colors.blue.shade50,
       body: SafeArea(
-        child: Consumer<HomeProvider>(
+        child: Consumer<VacancyProvider>(
           builder: (context, provider, _) => SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Padding(
@@ -69,30 +57,45 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 35,
-                    child: ValueListenableBuilder(
-                      valueListenable: _selectedCategory,
-                      builder: (context, categoryId, child) => ListView.builder(
-                        itemCount: provider.categories.length,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => _Category(
-                          onTap: () =>
-                              _selectCategory(provider.categories[index]),
-                          isSelected: index == categoryId,
-                          category: provider.categories[index],
+                  Gap(AppDimensions.gapLarge),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(45.0),
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: Colors.blueGrey.withOpacity(0.5),
+                      //     blurRadius: 10,
+                      //     offset: Offset(0, 5),
+                      //   ),
+                      // ],
+                    ),
+                    child: TextFormField(
+                      maxLines: 1,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(15.0),
+                        border: InputBorder.none,
+                        hintText: 'Search...',
+                        prefixIcon: Icon(
+                          Icons.search_rounded,
                         ),
                       ),
                     ),
                   ),
+                  Gap(AppDimensions.gapLarge),
+                  _Category(
+                    onTap: () {},
+                    icon: Icons.filter_alt_outlined,
+                    // text: 'Filter',
+                  ),
                   ListView.builder(
-                    physics: BouncingScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     itemCount: provider.vacancies.length,
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) => _JobCard(
-                      onTap: () => context.router.push(JobDescriptionRoute()),
+                      onTap: () => context.router.push(JobDescriptionRoute(
+                          vacancy: provider.vacancies[index])),
                       vacancy: provider.vacancies[index],
                     ),
                   ),
@@ -106,26 +109,32 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _selectCategory(CategoryModel category) => _selectedCategory.value =
-      _selectedCategory.value == category ? null : category;
+// void _selectCategory(CategoryModel category) => _selectedCategory.value =
+//     _selectedCategory.value == category ? null : category;
 }
 
 class _Category extends StatelessWidget {
-  final bool isSelected;
+  final IconData icon;
   final VoidCallback onTap;
-  final CategoryModel category;
+  // final String text;
+
+  // final CategoryModel category;
 
   const _Category({
     super.key,
     required this.onTap,
-    this.isSelected = false,
-    required this.category,
+    required this.icon,
+    // required this.text,
+    // required this.category,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 4, left: 4),
+      padding: const EdgeInsets.only(
+        right: 4,
+        left: 4,
+      ),
       child: InkWellMaterial(
         borderRadius: 16.0,
         onTap: onTap,
@@ -134,17 +143,24 @@ class _Category extends StatelessWidget {
           height: 35,
           width: 90,
           decoration: BoxDecoration(
-            color: isSelected ? Colors.black : Colors.white,
-            border: Border.all(
-              color: Colors.black,
-            ),
             borderRadius: BorderRadius.circular(16.0),
+            color: Colors.white,
           ),
-          child: Text(
-            'Recent',
-            style: AppTypography.labelLarge.copyWith(
-              color: isSelected ? Colors.white : Colors.black,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Icon(
+                icon,
+                size: 18.0,
+              ),
+              // Text(
+              //   text,
+              //   style: AppTypography.labelLarge.copyWith(
+              //     fontWeight: FontWeight.w500,
+              //     fontSize: 18.0,
+              //   ),
+              // ),
+            ],
           ),
         ),
       ),
@@ -157,7 +173,6 @@ class _JobCard extends StatelessWidget {
   final VacancyModel vacancy;
 
   const _JobCard({
-    super.key,
     required this.onTap,
     required this.vacancy,
   });
@@ -168,29 +183,29 @@ class _JobCard extends StatelessWidget {
       padding: EdgeInsets.only(
         top: 16.0,
       ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        onTap: onTap,
-        child: Container(
-          height: 175,
-          width: double.maxFinite,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                blurRadius: 10,
-                offset: Offset(0, 5),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ClipRRect(
+      child: Container(
+        height: 175,
+        width: double.maxFinite,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              blurRadius: 10,
+              offset: Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              InkWellMaterial(
+                borderRadius: 20,
+                onTap: onTap,
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.asset(
                     AppImages.splashImage,
@@ -198,29 +213,53 @@ class _JobCard extends StatelessWidget {
                     height: 175,
                   ),
                 ),
-                const Gap(10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Sales Executive',
-                        style: AppTypography.titleLarge,
+              ),
+              const Gap(10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: InkWellMaterial(
+                        borderRadius: 20,
+                        onTap: onTap,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              vacancy.title,
+                              style: AppTypography.titleLarge,
+                            ),
+                            Text(
+                              vacancy.salary,
+                              style: AppTypography.bodyMedium.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              vacancy.timing,
+                              style: AppTypography.bodyMedium.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const Spacer(),
+                          ],
+                        ),
                       ),
-                      Text(
-                        'Fulltime',
-                        style: AppTypography.bodyMedium,
-                      ),
-                      const Spacer(),
-                      PrimaryButton(
-                        onTap: () {},
-                        text: 'Apply',
-                      ),
-                    ],
-                  ),
+                    ),
+                    PrimaryButton(
+                      btncolor: Colors.black,
+                      txtcolor: Colors.white,
+                      onTap: () {
+                        // context.router
+                        //     .push(JobDescriptionRoute(vacancy: vacancy));
+                      },
+                      text: 'Apply',
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -42,6 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue.shade50,
       body: SafeArea(
           child: Center(
         child: SingleChildScrollView(
@@ -95,6 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             lText: 'E-mail',
                             prefix: Icon(Icons.mail),
                             controller: _emailCtrl,
+                            maxLines: 1,
                             validator: (value) =>
                                 CustomValidators.validateEmail(value),
                           ),

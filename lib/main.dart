@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             fontFamily: AppTypography.defaultFamily,
             colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.white,
+              seedColor: Colors.blue.shade100.withOpacity(0.5),
             ),
             useMaterial3: true,
           ),
