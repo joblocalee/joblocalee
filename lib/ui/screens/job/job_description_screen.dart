@@ -97,8 +97,7 @@ class JobDescriptionScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         vacancy.shops.address,
-                                        style:
-                                            AppTypography.bodyLarge.copyWith(
+                                        style: AppTypography.bodyLarge.copyWith(
                                           color: Colors.white,
                                           fontSize: 14,
                                         ),
@@ -179,7 +178,7 @@ class JobDescriptionScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Job Highlights',
+                              'Preferences',
                               style: AppTypography.titleLarge,
                             ),
                             SizedBox(
@@ -205,13 +204,6 @@ class JobDescriptionScreen extends StatelessWidget {
                               icon: Icons.supervisor_account_rounded,
                               text1: 'Gender: ',
                               text2: 'Male/Female',
-                            ),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Text(
-                              'Preferences',
-                              style: AppTypography.titleLarge,
                             ),
                             SizedBox(
                               height: 8,
@@ -250,6 +242,8 @@ class JobDescriptionScreen extends StatelessWidget {
                         height: 16,
                       ),
                       Container(
+                        height: MediaQuery.sizeOf(context).width,
+                        width: MediaQuery.sizeOf(context).width,
                         padding: EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),

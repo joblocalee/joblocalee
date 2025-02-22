@@ -43,46 +43,50 @@ class MenuScreen extends StatelessWidget implements AutoRouteWrapper {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    InkWellMaterial(
-                      borderRadius: 45,
-                      onTap: () {
-                        context.router.push(ProfileRoute());
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              blurRadius: 10,
-                              offset: const Offset(0, 5),
+                    Consumer<AuthProvider>(
+                      builder: (context, provider, _) {
+                        return InkWellMaterial(
+                          borderRadius: 45,
+                          onTap: () {
+                            context.router.push(ProfileRoute());
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 5),
+                                ),
+                              ],
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.circular(45),
                             ),
-                          ],
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(45),
-                        ),
-                        child: ListTile(
-                          minVerticalPadding: 15,
-                          leading: CircleAvatar(
-                            radius: 25,
-                            child: ClipOval(
-                              child: Image(
-                                image: AssetImage(AppImages.profileImage2),
-                                fit: BoxFit.cover,
-                                width: 100,
+                            child: ListTile(
+                              minVerticalPadding: 15,
+                              leading: CircleAvatar(
+                                radius: 25,
+                                child: ClipOval(
+                                  child: Image(
+                                    image: AssetImage(AppImages.splashImage),
+                                    fit: BoxFit.cover,
+                                    width: 100,
+                                  ),
+                                ),
+                              ),
+                              title: Text(
+                                provider.user!.name,
+                                style: AppTypography.titleLarge,
+                              ),
+                              subtitle: Text(
+                                provider.user!.email,
+                                style: AppTypography.bodyMedium,
                               ),
                             ),
                           ),
-                          title: Text(
-                            'Muhammed Shamil',
-                            style: AppTypography.titleLarge,
-                          ),
-                          subtitle: Text(
-                            'muhammedshamil@joblocalee.com',
-                            style: AppTypography.bodyMedium,
-                          ),
-                        ),
-                      ),
+                        );
+                      }
                     ),
                     SizedBox(
                       height: 15,

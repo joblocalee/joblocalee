@@ -70,6 +70,11 @@ class AuthProvider extends BaseProvider {
     required String passWord,
     required String phoneNumber,
     required String name,
+    required String gender,
+    required String age,
+    // required String locality,
+    required String address,
+    required String education,
   }) async {
     try {
       setViewBusy();
@@ -78,12 +83,73 @@ class AuthProvider extends BaseProvider {
         passWord: passWord,
         name: name,
         phoneNumber: phoneNumber,
+        gender: gender,
+        age: age,
+        education: education,
+        // locality: locality,
+        address: address,
       );
 
       // log(user.toString(), name: 'User');
       return true;
     } catch (e, s) {
       _errorManager.analyticsLog(name: 'Register', e: e, s: s);
+    } finally {
+      setViewIdeal();
+    }
+    return false;
+  }
+
+  Future<bool> editProfile({
+    required String email,
+    required String phoneNumber,
+    required String name,
+    required String gender,
+    required String age,
+    // required String locality,
+    required String address,
+    required String education,
+  }) async {
+    try {
+      setViewBusy();
+      final response = await _authServices.editProfile(
+        id: user!.id,
+        email: email,
+        name: name,
+        phoneNumber: phoneNumber,
+        gender: gender,
+        age: age,
+        education: education,
+        // locality: locality,
+        address: address,
+      );
+      _user = response.user;
+      _userRepository.save(response.user);
+
+
+      // log(user.toString(), name: 'User');
+      return true;
+    } catch (e, s) {
+      _errorManager.analyticsLog(name: 'Edit Profile', e: e, s: s);
+    } finally {
+      setViewIdeal();
+    }
+    return false;
+  }
+
+  Future<bool> updatePassword({
+    required String passWord,
+  }) async {
+    try {
+      setViewBusy();
+      await _authServices.updatePassword(
+        passWord: passWord,
+      );
+
+      // log(user.toString(), name: 'User');
+      return true;
+    } catch (e, s) {
+      _errorManager.analyticsLog(name: 'Update Password', e: e, s: s);
     } finally {
       setViewIdeal();
     }

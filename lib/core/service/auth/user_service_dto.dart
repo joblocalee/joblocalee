@@ -15,3 +15,13 @@ class UserServiceDto with _$UserServiceDto {
 
   factory UserServiceDto.fromJson(Map<String, dynamic> json) => _$UserServiceDtoFromJson(json);
 }
+
+
+@freezed
+class UserUpdateDto with _$UserUpdateDto {
+  const factory UserUpdateDto({
+    @JsonKey(name: 'user') required UserModel user,
+  }) = _UserUpdateDto;
+
+  factory UserUpdateDto.fromJson(Map<String, dynamic> json) => _$UserUpdateDtoFromJson(json);
+}

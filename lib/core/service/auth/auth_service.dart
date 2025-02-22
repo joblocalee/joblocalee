@@ -44,6 +44,11 @@ class AuthServices {
     required String name,
     required String passWord,
     required String phoneNumber,
+    required String gender,
+    required String age,
+    // required String locality,
+    required String education,
+    required String address,
   }) async {
     await _api.httpPost(
       endPath: 'users/register',
@@ -52,33 +57,53 @@ class AuthServices {
         'userName': name,
         'password': passWord,
         'contactNumber': phoneNumber,
+        'gender': gender,
+        'age': age,
+        'education': education,
+        // 'locality': locality,
+        'address': address,
+
       },
     );
 
     return ;
   }
 
-  Future<UserModel> editProfile({
+  Future<void> updatePassword({
+    required String passWord,
+  }) async {
+    await _api.httpPost(
+      endPath: '',
+      body: {
+        'password': passWord,
+      },
+    );
+
+    return ;
+  }
+
+  Future<UserUpdateDto> editProfile({
     required String email,
     required String name,
     required String phoneNumber,
-    required String address,
-    required String locality,
-    required String education,
     required String gender,
-    required String languages,
+    required String age,
+    required String id,
+    // required String locality,
+    required String education,
+    required String address,
   }) async {
     final response = await _api.httpPost(
-      endPath: 'users/editProfile',
+      endPath: 'users/update',
       body: {
         'email_id': email,
         'userName': name,
         'contactNumber': phoneNumber,
-        'address': address,
-        'locality': locality,
         'gender': gender,
+        'age': age,
         'education': education,
-        'languages': languages,
+        // 'locality': locality,
+        'address': address,
       },
     );
 
@@ -89,7 +114,7 @@ class AuthServices {
           response: response,
         );
 
-        return UserModel.fromJson(responseData);
+        return UserUpdateDto.fromJson(responseData);
       },
     );
   }

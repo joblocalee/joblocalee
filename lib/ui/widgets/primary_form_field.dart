@@ -4,6 +4,7 @@ import '../../utils/constants/app_typography.dart';
 
 class PrimaryFormField extends StatefulWidget {
   final String? hText;
+  final String? initialText;
   final String lText;
   final Widget? prefix;
   final bool isPassWord;
@@ -22,6 +23,7 @@ class PrimaryFormField extends StatefulWidget {
     this.validator,
     this.minLines,
     this.maxLines,
+    this.initialText,
   });
 
   @override
@@ -35,41 +37,39 @@ class _PrimaryFormFieldState extends State<PrimaryFormField> {
   void initState() {
     super.initState();
     _isSecure = widget.isPassWord;
+    if (widget.controller != null && widget.initialText != null) {
+      widget.controller!.text = widget.initialText!;
+    }
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextFormField(
-          controller: widget.controller,
-          obscureText: _isSecure,
-          maxLines: widget.maxLines,
-          minLines: widget.minLines,
-          style: const TextStyle(
-            fontFamily: AppTypography.defaultFamily,
-          ),
-          validator: widget.validator,
-          decoration: InputDecoration(
-            alignLabelWithHint: true,
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
-            ),
-            labelStyle: AppTypography.labelMedium,
-            hintText: widget.hText,
-            labelText: widget.lText,
-            prefixIcon: widget.prefix,
-            suffixIcon: widget.isPassWord
-                ? IconButton(
-                    onPressed: () => setState(() => _isSecure = !_isSecure),
-                    icon: Icon(
-                      _isSecure ? Icons.visibility : Icons.visibility_off,
-                    ),
-                  )
-                : null,
-          ),
-        ),
-      ],
+    return TextFormField(
+      controller: widget.controller,
+      obscureText: _isSecure,
+      maxLines: widget.maxLines,
+      minLines: widget.minLines,
+      initialValue: widget.controller != null ? null : widget.initialText,
+      style: const TextStyle(fontFamily: AppTypography.defaultFamily),
+      validator: widget.validator,
+      decoration: InputDecoration(
+        alignLabelWithHint: true,
+        border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16))),
+        labelStyle: AppTypography.labelMedium,
+        hintText: widget.hText,
+        labelText: widget.lText,
+        prefixIcon: widget.prefix,
+        suffixIcon: widget.isPassWord
+            ? IconButton(
+                onPressed: () => setState(() => _isSecure = !_isSecure),
+                icon: Icon(
+                  _isSecure ? Icons.visibility : Icons.visibility_off,
+                ),
+              )
+            : null,
+      ),
     );
   }
 }

@@ -23,9 +23,9 @@ class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) => ChangeNotifierProvider(
-        create: (context) => locator<VacancyProvider>()..getVacancy(),
-        child: this,
-      );
+    create: (context) => locator<VacancyProvider>()..getVacancy(),
+    child: this,
+  );
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -62,13 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(45.0),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: Colors.blueGrey.withOpacity(0.5),
-                      //     blurRadius: 10,
-                      //     offset: Offset(0, 5),
-                      //   ),
-                      // ],
                     ),
                     child: TextFormField(
                       maxLines: 1,
@@ -145,6 +138,13 @@ class _Category extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
             color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+            ],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
