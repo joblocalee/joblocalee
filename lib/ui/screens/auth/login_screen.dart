@@ -114,6 +114,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           Consumer<AuthProvider>(
                             builder: (context, provider, _) {
                               return PrimaryButton(
+                                btncolor: Colors.black,
+                                txtcolor: Colors.white,
                                 text: 'Login',
                                 onTap: () => _login(),
                                 isLoading: provider.isBusy,

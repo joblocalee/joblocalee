@@ -35,6 +35,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
   final _genderController = TextEditingController();
   final _ageController = TextEditingController();
   final _addressController = TextEditingController();
+
   // final _localityController = TextEditingController();
   final _educationController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -65,8 +66,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
             child: Column(
               children: [
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: context.screenPadding),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.screenPadding,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -112,7 +114,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                       PrimaryFormField(
                                         controller: _nameController,
                                         lText: 'Name',
-                                        prefix: const Icon(Icons.person_outlined),
+                                        prefix:
+                                            const Icon(Icons.person_outlined),
                                         maxLines: 1,
                                         validator: (value) =>
                                             CustomValidators.validateRequired(
@@ -162,13 +165,16 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                       ),
                                       const Gap(50),
                                       Consumer<AuthProvider>(
-                                          builder: (context, provider, _) {
-                                        return PrimaryButton(
-                                          text: 'Sign Up',
-                                          onTap: () => _register(),
-                                          isLoading: provider.isBusy,
-                                        );
-                                      }),
+                                        builder: (context, provider, _) {
+                                          return PrimaryButton(
+                                            btncolor: Colors.black,
+                                            txtcolor: Colors.white,
+                                            text: 'Sign Up',
+                                            onTap: () => _register(),
+                                            isLoading: provider.isBusy,
+                                          );
+                                        },
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -187,7 +193,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                       PrimaryFormField(
                                         controller: _genderController,
                                         lText: 'Gender',
-                                        prefix: const Icon(Icons.person_outlined),
+                                        prefix:
+                                            const Icon(Icons.person_outlined),
                                         maxLines: 1,
                                         validator: (value) =>
                                             CustomValidators.validateRequired(
@@ -208,8 +215,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                         controller: _addressController,
                                         lText: 'Address',
                                         prefix: const Align(
-                                          alignment:Alignment.topCenter,
-                                           heightFactor: 4.8,widthFactor: 1,
+                                          alignment: Alignment.topCenter,
+                                          heightFactor: 4.8,
+                                          widthFactor: 1,
                                           child: Icon(
                                             Icons.home_outlined,
                                           ),
@@ -223,7 +231,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                       PrimaryFormField(
                                         controller: _educationController,
                                         lText: 'Education',
-                                        prefix: const Icon(Icons.location_on_outlined),
+                                        prefix: const Icon(
+                                            Icons.location_on_outlined),
                                         maxLines: 1,
                                         validator: (value) =>
                                             CustomValidators.validateRequired(
@@ -231,13 +240,16 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                       ),
                                       const Gap(10),
                                       Consumer<AuthProvider>(
-                                          builder: (context, provider, _) {
-                                        return PrimaryButton(
-                                          text: 'Continue',
-                                          onTap: () => _register(),
-                                          isLoading: provider.isBusy,
-                                        );
-                                      }),
+                                        builder: (context, provider, _) {
+                                          return PrimaryButton(
+                                            btncolor: Colors.black,
+                                            txtcolor: Colors.white,
+                                            text: 'Continue',
+                                            onTap: () => _register(),
+                                            isLoading: provider.isBusy,
+                                          );
+                                        },
+                                      ),
                                     ],
                                   ),
                                 ),

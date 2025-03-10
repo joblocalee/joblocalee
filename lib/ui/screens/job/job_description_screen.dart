@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
+import '../../../core/injection/injection.dart';
+import '../../../core/provider/vacancy_provider.dart';
 import '../../../core/model/vacancy/vacancy_model.dart';
 import '../../../utils/constants/app_images.dart';
 import '../../widgets/buttons/primary_button.dart';
@@ -9,12 +12,14 @@ import '../../../utils/constants/app_typography.dart';
 import '../../../utils/extensions/build_context_extension.dart';
 
 @RoutePage()
-class JobDescriptionScreen extends StatelessWidget {
+class JobDescriptionScreen extends StatelessWidget implements AutoRouteWrapper{
   final VacancyModel vacancy;
+  final bool hasApplied;
 
   const JobDescriptionScreen({
     super.key,
     required this.vacancy,
+    this.hasApplied = false,
   });
 
   @override
@@ -143,25 +148,25 @@ class JobDescriptionScreen extends StatelessWidget {
                               icon: Icons.currency_rupee_rounded,
                               text1: vacancy.salary,
                             ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                padding: EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Colors.white,
-                                ),
-                                child: Text(
-                                  '30 Vacancies',
-                                  style: AppTypography.bodyLarge.copyWith(
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            // SizedBox(
+                            //   height: 8,
+                            // ),
+                            // Align(
+                            //   alignment: Alignment.centerLeft,
+                            //   child: Container(
+                            //     padding: EdgeInsets.all(8.0),
+                            //     decoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(8.0),
+                            //       color: Colors.white,
+                            //     ),
+                            //     child: Text(
+                            //       '30 Vacancies',
+                            //       style: AppTypography.bodyLarge.copyWith(
+                            //         fontSize: 14,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -275,6 +280,7 @@ class JobDescriptionScreen extends StatelessWidget {
               ),
             ),
           ),
+          if(!hasApplied)
           Positioned(
             bottom: 0,
             left: 0,
@@ -284,16 +290,33 @@ class JobDescriptionScreen extends StatelessWidget {
                 horizontal: context.screenPadding,
                 vertical: context.screenPadding,
               ),
-              child: PrimaryButton(
-                btncolor: Colors.black,
-                txtcolor: Colors.white,
-                text: 'Apply',
-                onTap: () {},
+              child: Consumer<ApplyProvider>(
+                builder: (context, provider, _) {
+                  return PrimaryButton(
+                    btncolor: Colors.black,
+                    txtcolor: Colors.white,
+                    text: 'Apply',
+                    isLoading: provider.isBusy,
+                    onTap: () => provider.isBusy ? null : _apply( context ),
+                  );
+                }
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+  @override
+  Widget wrappedRoute(BuildContext context) => ChangeNotifierProvider(
+    create: (context) => locator<ApplyProvider>(),
+    child: this,
+  );
+
+  Future<void> _apply(BuildContext context) async {
+    await context.read<ApplyProvider>().apply(
+      id: vacancy.id,
+      sId: vacancy.shops.id,
     );
   }
 }

@@ -58,4 +58,36 @@ class VacancyProvider extends BaseProvider {
     }
     return false;
   }
+
+}
+
+@injectable
+class ApplyProvider extends BaseProvider {
+  final VacancyService _vacancyService;
+  final ErrorManager _errorManager;
+
+  ApplyProvider(
+    this._vacancyService,
+    this._errorManager,
+  );
+
+  Future<bool> apply({
+    required String id,
+    required String sId,
+  }) async {
+    try {
+      setViewBusy();
+      await _vacancyService.apply(
+        id: id,
+        sId: sId,
+      );
+      return true;
+    } catch (e, s) {
+      _errorManager.analyticsLog(name: 'Apply', e: e, s: s);
+    } finally {
+      setViewIdeal();
+    }
+
+    return false;
+  }
 }

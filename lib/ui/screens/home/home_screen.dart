@@ -23,9 +23,9 @@ class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) => ChangeNotifierProvider(
-    create: (context) => locator<VacancyProvider>()..getVacancy(),
-    child: this,
-  );
+        create: (context) => locator<VacancyProvider>()..getVacancy(),
+        child: this,
+      );
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onTap: () => context.router.push(JobDescriptionRoute(
                           vacancy: provider.vacancies[index])),
                       vacancy: provider.vacancies[index],
-                    ),
+                    ).wrappedRoute(context),
                   ),
                   Gap(MediaQuery.paddingOf(context).bottom + 100),
                 ],
@@ -109,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
 class _Category extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
+
   // final String text;
 
   // final CategoryModel category;
@@ -168,7 +169,7 @@ class _Category extends StatelessWidget {
   }
 }
 
-class _JobCard extends StatelessWidget {
+class _JobCard extends StatelessWidget implements AutoRouteWrapper {
   final VoidCallback onTap;
   final VacancyModel vacancy;
 
@@ -247,15 +248,15 @@ class _JobCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    PrimaryButton(
-                      btncolor: Colors.black,
-                      txtcolor: Colors.white,
-                      onTap: () {
-                        // context.router
-                        //     .push(JobDescriptionRoute(vacancy: vacancy));
-                      },
-                      text: 'Apply',
-                    ),
+                    Consumer<ApplyProvider>(builder: (context, provider, _) {
+                      return PrimaryButton(
+                        btncolor: Colors.black,
+                        txtcolor: Colors.white,
+                        isLoading: provider.isBusy,
+                        onTap: () => provider.isBusy ? null : _apply(context),
+                        text: 'Apply',
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -264,5 +265,18 @@ class _JobCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  Widget wrappedRoute(BuildContext context) => ChangeNotifierProvider(
+        create: (context) => locator<ApplyProvider>(),
+        child: this,
+      );
+
+  Future<void> _apply(BuildContext context) async {
+    await context.read<ApplyProvider>().apply(
+          id: vacancy.id,
+          sId: vacancy.shops.id,
+        );
   }
 }

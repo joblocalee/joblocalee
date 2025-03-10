@@ -139,11 +139,13 @@ class AuthProvider extends BaseProvider {
 
   Future<bool> updatePassword({
     required String passWord,
+    required String newPassWord,
   }) async {
     try {
       setViewBusy();
       await _authServices.updatePassword(
         passWord: passWord,
+        newPassWord: newPassWord,
       );
 
       // log(user.toString(), name: 'User');

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:jus/utils/helper/custom_validators.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/injection/injection.dart';
@@ -15,14 +16,32 @@ import '../../../utils/constants/app_images.dart';
 import '../../../utils/constants/app_typography.dart';
 
 @RoutePage()
-class MenuScreen extends StatelessWidget implements AutoRouteWrapper {
+class MenuScreen extends StatefulWidget implements AutoRouteWrapper {
   const MenuScreen({super.key});
+
+  @override
+  State<MenuScreen> createState() => _MenuScreenState();
 
   @override
   Widget wrappedRoute(BuildContext context) => ChangeNotifierProvider.value(
         value: locator<AuthProvider>(),
         child: this,
       );
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+  late TextEditingController _passwordController;
+  late TextEditingController _confirmPasswordController;
+  late TextEditingController _newPasswordController;
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordController = TextEditingController();
+    _newPasswordController = TextEditingController();
+    _confirmPasswordController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,51 +62,49 @@ class MenuScreen extends StatelessWidget implements AutoRouteWrapper {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Consumer<AuthProvider>(
-                      builder: (context, provider, _) {
-                        return InkWellMaterial(
-                          borderRadius: 45,
-                          onTap: () {
-                            context.router.push(ProfileRoute());
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 5),
+                    Consumer<AuthProvider>(builder: (context, provider, _) {
+                      return InkWellMaterial(
+                        borderRadius: 45,
+                        onTap: () {
+                          context.router.push(ProfileRoute());
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                blurRadius: 10,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(45),
+                          ),
+                          child: ListTile(
+                            minVerticalPadding: 15,
+                            leading: CircleAvatar(
+                              radius: 25,
+                              child: ClipOval(
+                                child: Image(
+                                  image: AssetImage(AppImages.splashImage),
+                                  fit: BoxFit.cover,
+                                  width: 100,
                                 ),
-                              ],
-                              shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.circular(45),
+                              ),
                             ),
-                            child: ListTile(
-                              minVerticalPadding: 15,
-                              leading: CircleAvatar(
-                                radius: 25,
-                                child: ClipOval(
-                                  child: Image(
-                                    image: AssetImage(AppImages.splashImage),
-                                    fit: BoxFit.cover,
-                                    width: 100,
-                                  ),
-                                ),
-                              ),
-                              title: Text(
-                                provider.user!.name,
-                                style: AppTypography.titleLarge,
-                              ),
-                              subtitle: Text(
-                                provider.user!.email,
-                                style: AppTypography.bodyMedium,
-                              ),
+                            title: Text(
+                              provider.user!.name,
+                              style: AppTypography.titleLarge,
+                            ),
+                            subtitle: Text(
+                              provider.user!.email,
+                              style: AppTypography.bodyMedium,
                             ),
                           ),
-                        );
-                      }
-                    ),
+                        ),
+                      );
+                    }),
                     SizedBox(
                       height: 15,
                     ),
@@ -168,60 +185,82 @@ class MenuScreen extends StatelessWidget implements AutoRouteWrapper {
                                 color: Colors.grey.withOpacity(0.25),
                                 thickness: 2,
                               ),
-                              _CategoryTile(
-                                icon: Icons.lock_outline_rounded,
-                                text: 'Upadte Password',
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) {
-                                      return Container(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: context.screenPadding,
-                                            vertical: context.screenPadding,
+                              Consumer<AuthProvider>(
+                                  builder: (context, provider, _) {
+                                return _CategoryTile(
+                                  icon: Icons.lock_outline_rounded,
+                                  text: 'Update Password',
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return Form(
+                                          key: _formKey,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: context.screenPadding,
+                                              vertical: context.screenPadding,
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  'Update Password',
+                                                  style:
+                                                      AppTypography.titleLarge,
+                                                ),
+                                                Gap(AppDimensions.gapMedium),
+                                                PrimaryFormField(
+                                                  controller: _passwordController,
+                                                  lText: 'Current Password',
+                                                  prefix: Icon(
+                                                    Icons.lock_outline_rounded,
+                                                  ),
+                                                  isPassWord: true,
+                                                  maxLines: 1,
+                                                  validator: (value) => CustomValidators.validatePassword(value),
+                                                ),
+                                                Gap(AppDimensions.gapMedium),
+                                                PrimaryFormField(
+                                                  controller: _newPasswordController,
+                                                  lText: 'New Password',
+                                                  prefix: Icon(
+                                                    Icons.lock_outline_rounded,
+                                                  ),
+                                                  isPassWord: true,
+                                                  maxLines: 1,
+                                                  validator: (value) => CustomValidators.validatePassword(value),
+                                                ),
+                                                Gap(AppDimensions.gapMedium),
+                                                PrimaryFormField(
+                                                  controller: _confirmPasswordController,
+                                                  lText: 'Retype Password',
+                                                  prefix: Icon(
+                                                    Icons.lock_outline_rounded,
+                                                  ),
+                                                  isPassWord: true,
+                                                  maxLines: 1,
+                                                  validator: (value) => CustomValidators.validatePassword(value),
+                                                ),
+                                                Gap(AppDimensions.buttonHeightPrimary),
+                                                Consumer<AuthProvider>(
+                                                  builder: (context, provider, _) {
+                                                    return PrimaryButton(
+                                                      btncolor: Colors.black,
+                                                      txtcolor: Colors.white,
+                                                      text: 'Update Password',
+                                                      onTap: () => _updatePassword(),
+                                                    );
+                                                  }
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                'Update Password',
-                                                style: AppTypography.titleLarge,
-                                              ),
-                                              Gap(AppDimensions.gapMedium),
-                                              PrimaryFormField(
-                                                lText: 'Current Password',
-                                                prefix: Icon(
-                                                  Icons.lock_outline_rounded,
-                                                ),
-                                                isPassWord: true,
-                                                maxLines: 1,
-                                              ),
-                                              Gap(AppDimensions.gapMedium),
-                                              PrimaryFormField(
-                                                lText: 'New Password',
-                                                prefix: Icon(
-                                                  Icons.lock_outline_rounded,
-                                                ),
-                                                isPassWord: true,
-                                                maxLines: 1,
-                                              ),
-                                              Gap(AppDimensions.gapMedium),
-                                              PrimaryFormField(
-                                                lText: 'Retype Password',
-                                                prefix: Icon(
-                                                  Icons.lock_outline_rounded,
-                                                ),
-                                                isPassWord: true,
-                                                maxLines: 1,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                              }),
                             ],
                           ),
                         ),
@@ -322,6 +361,27 @@ class MenuScreen extends StatelessWidget implements AutoRouteWrapper {
   }
 
   void _logout(BuildContext context) => context.read<AuthProvider>().logout();
+
+  @override
+  void dispose() {
+    _confirmPasswordController.dispose();
+    _newPasswordController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _updatePassword() async {
+    bool result = false;
+    if (_formKey.currentState!.validate()) {
+      result = await context.read<AuthProvider>().updatePassword(
+        passWord: _passwordController.text,
+        newPassWord: _newPasswordController.text,
+      );
+    }
+    if (result && mounted) {
+      context.router.popForced();
+    }
+  }
 }
 
 class _ProfileTile extends StatelessWidget {

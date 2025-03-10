@@ -128,7 +128,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     initialText: provider.user?.gender,
                                     maxLines: 1,
                                     validator: (value) =>
-                                        CustomValidators.validateRequired(value),
+                                        CustomValidators.validateRequired(
+                                            value),
                                   ),
                                   const Gap(AppDimensions.gapLarge),
                                   PrimaryFormField(
@@ -137,7 +138,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     initialText: provider.user?.age,
                                     maxLines: 1,
                                     validator: (value) =>
-                                        CustomValidators.validateRequired(value),
+                                        CustomValidators.validateRequired(
+                                            value),
                                   ),
                                   const Gap(AppDimensions.gapMedium),
                                 ],
@@ -185,7 +187,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     initialText: provider.user?.phone,
                                     maxLines: 1,
                                     validator: (value) =>
-                                        CustomValidators.validateRequired(value),
+                                        CustomValidators.validateRequired(
+                                            value),
                                   ),
                                   const Gap(AppDimensions.gapLarge),
                                   // PrimaryFormField(
@@ -199,7 +202,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     initialText: provider.user?.address,
                                     maxLines: 5,
                                     validator: (value) =>
-                                        CustomValidators.validateRequired(value),
+                                        CustomValidators.validateRequired(
+                                            value),
                                   ),
                                   const Gap(AppDimensions.gapMedium),
                                 ],
@@ -238,7 +242,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     initialText: provider.user?.education,
                                     maxLines: 1,
                                     validator: (value) =>
-                                        CustomValidators.validateRequired(value),
+                                        CustomValidators.validateRequired(
+                                            value),
                                   ),
                                   const Gap(AppDimensions.gapLarge),
                                   // PrimaryFormField(
@@ -278,19 +283,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 horizontal: context.screenPadding,
                 vertical: context.screenPadding,
               ),
-              child: Consumer(builder: (context, provider, _) {
-                return PrimaryButton(
-                  text: 'Update Profile',
-                  btncolor: Colors.black,
-                  txtcolor: Colors.white,
-                  onTap: () => _editProfile(),
-                );
-              }),
+              child: Consumer(
+                builder: (context, provider, _) {
+                  return PrimaryButton(
+                    text: 'Update Profile',
+                    btncolor: Colors.black,
+                    txtcolor: Colors.white,
+                    onTap: () => _editProfile(),
+                  );
+                },
+              ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _educationController.dispose();
+    // _localityController.dispose();
+    _addressController.dispose();
+    _ageController.dispose();
+    _genderController.dispose();
+    _phoneController.dispose();
+    _nameController.dispose();
+    _emailController.dispose();
+    super.dispose();
   }
 
   Future<void> _editProfile() async {
@@ -307,7 +327,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             education: _educationController.text,
           );
     }
-    if(result && mounted){
+    if (result && mounted) {
       context.router.popForced();
     }
   }

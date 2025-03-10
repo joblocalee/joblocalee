@@ -71,11 +71,13 @@ class AuthServices {
 
   Future<void> updatePassword({
     required String passWord,
+    required String newPassWord,
   }) async {
     await _api.httpPost(
-      endPath: '',
+      endPath: 'users/updatePassword',
       body: {
         'password': passWord,
+        'newPassWord': newPassWord,
       },
     );
 
