@@ -1,0 +1,2 @@
+C:/Users/altha/StudioProjects/jobLocalee/joblocalee/android/app/.cxx/Debug/2s55r631/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/altha/StudioProjects/jobLocalee/joblocalee/android/app/.cxx/Debug/2s55r631/armeabi-v7a/CMakeFiles/rebuild_cache.dir
